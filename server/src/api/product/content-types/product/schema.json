@@ -1,0 +1,87 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "model": {
+      "type": "string"
+    },
+    "coolPower": {
+      "type": "string"
+    },
+    "heatPower": {
+      "type": "string"
+    },
+    "inputPower": {
+      "type": "string"
+    },
+    "noise": {
+      "type": "string"
+    },
+    "sizeOut": {
+      "type": "string"
+    },
+    "sizeIn": {
+      "type": "string"
+    },
+    "freon": {
+      "type": "string"
+    },
+    "powerBtu": {
+      "type": "string"
+    },
+    "compressorType": {
+      "type": "string"
+    },
+    "workUp": {
+      "type": "string"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "brand": {
+      "type": "string"
+    },
+    "brands": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::brand.brand"
+    },
+    "subcategories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::subcategory.subcategory"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
+    }
+  }
+}
