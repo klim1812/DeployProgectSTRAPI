@@ -82,6 +82,21 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::category.category"
+    },
+    "bufer": {
+      "type": "string"
+    },
+    "connection_size": {
+      "type": "string"
+    },
+    "fan_diameter": {
+      "type": "string"
+    },
+    "fin_pitch": {
+      "type": "string"
+    },
+    "phases": {
+      "type": "string"
     }
   }
 }
