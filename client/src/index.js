@@ -4,10 +4,18 @@ import {BrowserRouter} from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {ApolloProvider, ApolloClient, createHttpLink, InMemoryCache} from '@apollo/client'
+import {ApolloProvider, ApolloClient, createHttpLink, InMemoryCache, makeVar} from '@apollo/client'
 import {setContext} from '@apollo/client/link/context';
 import ErrorBoundary from './Error/ErrorBoundary';
 
+// let paginationDefault = 1;
+export const make_category = makeVar([1]);
+export const make_subcategory = makeVar(5);
+export const make_brandfilter = makeVar([]);
+export const make_powerfilter = makeVar([]);
+export const make_compressorfilter = makeVar([]);
+export const make_pagination = makeVar([1]);
+export const make_productid = makeVar([]);
 
 
 
@@ -40,11 +48,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ErrorBoundary>
   <ApolloProvider client={client}>
-  <React.StrictMode>
+  {/* <React.StrictMode> */}
     <BrowserRouter>
     <App />
     </BrowserRouter>
-  </React.StrictMode>
+  {/* </React.StrictMode> */}
   </ApolloProvider>
   </ErrorBoundary>
 );

@@ -97,6 +97,9 @@
     },
     "phases": {
       "type": "string"
+    },
+    "seo": {
+      "type": "string"
     }
   }
 }

@@ -1,15 +1,16 @@
-export   const  HOST_STRAPI="http://localhost:8002"
+export   const  HOST_STRAPI="http://localhost:1337"
 
 export const ADMIN_ROUTE = '/admin'
 export const LOGIN_ROUTE = '/login'
 export const AUTH_ROUTE = '/auth'
 export const REGISTRATION_ROUTE = '/registration'
-export const BASKET_ROUTE = '/basket'
-export const BASKET_ROUTE2 = '/basket2'
+export const CART_ROUTE = '/cart'
 export const LIST_ORDER = '/list_order'
 
 
-export const CATALOG_ROUTE ='/'
+export const HOME_PAGE  ='/'
 export const SHOP_ROUTE = '/shop'
-export const SUBCATEGORIES_ROUTE = '/subcategories'
-export const PRODUCT_PAGE = '/product_page'
+export const CATALOG_ROUTE = '/catalog'
+export const SUBCATALOG_ROUTE = '/subcatalog'
+export const CATEGORIES_ROUTE = 'categories'
+export const PRODUCT_ROUTE = '/product_page'
