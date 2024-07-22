@@ -1,32 +1,21 @@
-
 import { gql } from "@apollo/client";
 
-export const PRODUCTS= gql
+export const CART_RODUCTS= gql
 
 `
-query($id:ID!,$ps:Int!, $pg:Int!){
+query($arr:[ID]!){
     products(filters:{
-      subcategories:{
-        id:{eq:$id}
-      }
-    }
-     pagination:{
-      pageSize: $ps
-      page:$pg 
-    } 
-    
-    ){
+      id:{in:$arr}
+    }){
+      
       data{
         id
+        
         attributes{
           name
           brand
           model
-          slug
           price
-          powerBtu
-          compressorType
-          description
           image{
             data{
               attributes{

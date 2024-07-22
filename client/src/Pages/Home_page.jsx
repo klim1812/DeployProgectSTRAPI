@@ -5,17 +5,30 @@ import Header from '../ComponentsPage/Header';
 import CardLanding from '../Cards/CardLanding';
 import CardCategory from '../Cards/CardCategory';
 import { Box } from '@mui/material';
+import Footer from '../ComponentsPage/Footer';
+import ChangeCurrency from '../ComponentsPage/ChangeCurrency';
+import { Seo } from '../Seo/Seo';
 
 function Home_page() {
   
     return (
       <>
-      <Box sx={{position:'sticky', top:'0px', zIndex:10,minHeight:'100%'}}>
-      <Header/>
-      </Box>
+           <Seo
+        title="Домашняя страница"
+        description="Кондиционеры,промышленный холод, тепловые насосы, комплекты энергонезависимости"
+        type="webapp"
+        name="CLIMATE"
+        key={"Домашняя страница"}
+      />
+       <Box sx={{position:'sticky', top:'0px', zIndex:10,minHeight:'100%'}}> 
+      {/* <Header/> */}
+       </Box> 
+      
+    <ChangeCurrency/>
     <Banner/>
     <CardCategory/>
     <CardLanding/>
+    <Footer/>
     </>
     );
 }

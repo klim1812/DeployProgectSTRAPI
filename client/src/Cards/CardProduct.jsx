@@ -6,18 +6,16 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { HOST_STRAPI, PRODUCT_ROUTE } from '../utils';
-import { NavLink } from 'react-router-dom';
-import { make_productid } from '..';
+import { Link } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { useCart } from 'react-use-cart';
 
 
 const ExpandMore = styled((props) => {
@@ -33,41 +31,53 @@ const ExpandMore = styled((props) => {
 
 export default function CardProduct({data}) {
   const [expanded, setExpanded] = React.useState(false);
-
-
+  const [size,setSize] = React.useState(false);
+  const [color,setColor] = React.useState('warning');
+  const {addItem} = useCart();
+  
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  // const handleClick = () =>{
+  const handleClick = () =>{
+   
+      setSize(true);
+  };
+  const handleUpClick = () =>{
+    setSize(false);
+};
 
-  // }
   const oneUrl = new Object(data.attributes.image.data.map(res => [res.attributes.url]));
 
-console.log(data.attributes);
-
+console.log(data.attributes.slug)
   return (
     <Card sx={{ minWidth: 345,maxWidth: 345,marginTop:1}} >
       
       <CardHeader
          
         action={
-          <IconButton aria-label="settings">
-            <AddShoppingCartIcon color='warning' />
+          <IconButton aria-label="settings" onMouseDown={()=>{handleClick()}}  onMouseUp={() => {
+            handleUpClick();
+            addItem({id:data.id,name:data.attributes.name,model:data.attributes.model,
+              price:data.attributes.price,image:HOST_STRAPI + oneUrl[0]});
+            sessionStorage.setItem(data.id+'id',data.id);          
+              }} >
+            <AddShoppingCartIcon color={size ? 'secondary' : 'warning'} fontSize={size ? 'large' : 'medium' }/>
           </IconButton>
         }
-        title={<Typography color='primary' variant='h6'>{data.attributes.name}</Typography>}
-        subheader={<Typography color='primary'>{data.attributes.brand} : {data.attributes.model}</Typography>}
+        title={<Typography color='primary' >{data.attributes.name}</Typography>}
+        subheader={<Typography color='primary' variant='h6'>{data.attributes.brand}</Typography>}
       />
-      <NavLink to={PRODUCT_ROUTE+'/'+ data.id} style={{textDecorationLine:'none'}}>
+      <Link to={PRODUCT_ROUTE+'/'+ data.attributes.slug} style={{textDecorationLine:'none'}}>
       <CardMedia
         component="img"
         height="194"
         image={HOST_STRAPI + oneUrl[0]}
         alt="Paella dish"
-      /></NavLink>
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        onClick={()=>sessionStorage.setItem('product_id',data.id)}
+      /></Link>
+      <CardContent >
+        <Typography variant="body2" color='primary'>
         Модель:{data.attributes.model}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -76,9 +86,12 @@ console.log(data.attributes);
         <Typography variant="body2" color="text.secondary">
         {data.attributes.compressorType}
         </Typography>
+        <Typography variant="body2" color='primary'>
+        Цена {data.attributes.price} $
+        </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" >
           <FavoriteIcon color='secondary'/>
         </IconButton>
         <IconButton aria-label="share">

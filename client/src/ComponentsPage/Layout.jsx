@@ -1,24 +1,22 @@
 import React from 'react';
-import Header from '../ComponentsPage/Header';
-import Footer from '../ComponentsPage/Footer';
-import { Outlet } from 'react-router-dom';
+import { Outlet,Link } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
-import PaginationBlock from './PaginationBlock';
+import Divider from '@mui/material/Divider';
+import Header from './Header';
+import {ABOUT_ROUTE} from '../utils';
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-
 function Layout() {
  
-  const [mode, setMode] = React.useState('light');
+  const [mode, setMode] = React.useState('dark');
 
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'));
       },
     }),
     [],
@@ -38,18 +36,22 @@ function Layout() {
         <>
         <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" >
         <CssBaseline />
+        {/* <nav> */}
+          <Header/>
+          {/* <Link to={ABOUT_ROUTE}>ABOUT_ROUTE</Link> */}
+          {/* </nav> */}
         <main>
           
           <Outlet/>
         
         </main>
-        
-        <Footer/>
+        <Divider/>
+        {/* <Footer/> */}
         </Container>
         </ThemeProvider>
-        </ColorModeContext.Provider>
+         </ColorModeContext.Provider>
         </>
     );
 }

@@ -41,10 +41,7 @@ function Banner() {
         <Box maxWidth= 'xl' sx={{
             display: 'flex',
             minHeight:'100%',
-        // alignItems: 'center',
-        // justifyContent: 'center',
         justifyContent:'space-evenly'
-        // height: '100%'
         }}>
         <ImageList 
        

@@ -11,6 +11,7 @@ query($id:ID!){
         name
         brand
         model
+        slug
         compressorType
         powerBtu
         inputPower
@@ -23,10 +24,16 @@ query($id:ID!){
         phases
         fan_diameter
         price
-        description
-        seo
+        description      
         fin_pitch
         freon
+         Seo{
+      metaTitle
+      metaDescription
+      preventIndexing
+      keywords
+      alt
+    }
         image{
           data{
             attributes{

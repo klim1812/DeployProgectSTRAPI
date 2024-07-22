@@ -14,3 +14,25 @@ indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = false
+
+HOST=0.0.0.0
+PORT=1337
+# APP_KEYS=6XP9S/NqO+sfgeQSxlHnsg==,yuoUiZ07Q9QiysSW1uWJpg==,5HsrjytL9QKB7QcgOD/lyw==,qzQ+2r1aMKw7V8Ktt5st9g==
+# API_TOKEN_SALT=e/GLcEOi/OjqfRYqQ0xQQA==
+# ADMIN_JWT_SECRET=JBhL5fF8SyW3ObC94TUHcQ==
+# TRANSFER_TOKEN_SALT=4DHdwBu9DS6dYtuv4A20zA==
+# Database
+DATABASE_CLIENT=sqlite
+DATABASE_FILENAME=.tmp/data.db
+# JWT_SECRET=Aq6a02jS2XCYNanq1rPNYA==
+
+PUBLIC_STRAPI_API_TOKEN =2596ec4ddc0ec623949cf3bc8e930cf366ae33320c07ff932df2d7a8d64577443332ec0741fb5373e7115c53fbc7736bcacca6683d50004bdb173eea978d2692e4b5c03a62de122598b4605f00f13cf81db6ef8b86ade3308cda3a771da4b61eb44fe1c9014f5f5811aa28c7a30c532993f2afc64bae77c41239b3cdbf5c0826
+PUBLIC_STRAPI_API_URL=http://localhost:1337
+
+# Email // https://cloud.seatable.io/
+
+SMTP_HOST = smtp-mail.outlook.com
+SMTP_PORT = 587
+
+SMTP_USERNAME = rahmaninov_andy@outlook.com
+SMTP_PASSWORD = qwerzitin123

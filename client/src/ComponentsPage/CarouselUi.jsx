@@ -1,24 +1,22 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button, CardMedia } from '@mui/material'
+import { Paper, CardMedia } from '@mui/material'
 import { HOST_STRAPI } from '../utils';
 
-export default function CarouselUi(image){
- 
+export default function CarouselUi(data){
+//  console.log(data.data.Seo.alt)
 
     return (
         <Carousel navButtonsAlwaysVisible >
             {
-                image.image.map( (item, i) =>    <Paper sx={{maxWidth: 500 ,marginLeft:'auto', marginRight:'auto'}} key={item.attributes.url}>
-                {/* <h2>{props.item.title}</h2> */}
-                {/* <img src={props.item.img} style={{alignItems:'center'}}/> */}
-    
+                data.data.image.data.map( (item, i) =>    <Paper sx={{maxWidth: 500 ,marginLeft:'auto', marginRight:'auto'}} key={item.attributes.url}>
+               
                 <CardMedia
             component="img"
             width="12"
             height="500"
             image={HOST_STRAPI + item.attributes.url}
-            alt="Paella dish"
+            // alt={data.data.Seo.alt ? data.data.Seo.alt : ''}
           />
             </Paper> )
             }

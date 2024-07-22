@@ -24,9 +24,7 @@ function DrawerCat(){
       };
 
     let categories_data = data.categories.data
-    // console.log(categories_data.map(el => el.attribures.name))
-    // console.log(categories_data.map(el => el.attributes.subcategories.data.map(list => list.attributes.name)))
-
+   
     return(
     <div>
       <Toolbar />

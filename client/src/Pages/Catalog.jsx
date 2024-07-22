@@ -5,37 +5,44 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MenuIcon from '@mui/icons-material/Menu';
-import SvgIcon from '@mui/material/SvgIcon';
 import Toolbar from '@mui/material/Toolbar';
 import { useQuery } from '@apollo/client';
-import { SUBCATEGORIES } from '../ApolloQuery/Subcategories';
 import { CATEGORIES } from '../ApolloQuery/Categories';
-import { NavLink } from 'react-router-dom';
-import { HOME_PAGE } from '../utils';
+import { Link } from 'react-router-dom';
+import { CART_ROUTE, HOME_PAGE } from '../utils';
 import DrawerCat from '../ComponentsPage/DrawerCat';
 import Shop from './Shop';
 import { Container } from '@mui/material';
 import FilterBox from '../ComponentsPage/FIlterBox';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
+import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
+import CircularProgress from '@mui/material/CircularProgress';
+import Stack from '@mui/material/Stack';
+import Footer from '../ComponentsPage/Footer';
+import { useCart } from 'react-use-cart';
+import { ABOUT_ROUTE,CONTACT_ROUTE } from '../utils';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Menu from '@mui/material/Menu';
+import Button from '@mui/material/Button';
 
 const drawerWidth = 300;
+const ITEM_HEIGHT = 48;
 
 function Catalog() {
-  const [age, setAge] = useState('');
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-
+  const open = Boolean(anchorEl);
+  const {totalItems} = useCart();
   const {data: data_category, loading:load,error: data_error} = useQuery(CATEGORIES);
   
-
   if(load){
-    return<h2>...loading</h2>
+    return   <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+    <CircularProgress color="secondary" />
+    <CircularProgress color="success" />
+    <CircularProgress color="inherit" />
+  </Stack>
   }
   if(data_error){
     return<h2>Error...</h2>
@@ -43,10 +50,6 @@ function Catalog() {
  
   let categories_data = data_category.categories.data
  
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -61,14 +64,22 @@ function Catalog() {
       setMobileOpen(!mobileOpen);
     }
   };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   
   let data_card = categories_data.map(el => el.attributes.subcategories)
  
-  
+
     return (
+      <>
     <Container maxWidth="xl">
           <Box sx={{ display: 'flex' }}>
       <CssBaseline />
+     
       <AppBar
         position="fixed"
         sx={{
@@ -76,8 +87,8 @@ function Catalog() {
           ml: { sm: `${drawerWidth}px` }, 
         }}
       >
-        <Toolbar sx={{display:'flex', justifyContent:'space-between'}}>
-          {/* <IconButton
+        <Toolbar sx={{display:'flex', flexFlow: 'row wrap'}}>
+          <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
@@ -86,34 +97,76 @@ function Catalog() {
           >
             <MenuIcon />
             
-          </IconButton> */}
-          
-          <NavLink to={HOME_PAGE} style={{textDecorationLine:'none', marginRight:'20px', }}>
-            
-          <Typography variant="h6" noWrap component="div" sx={{ marginRight:'20px',color: 'white'}}>
-            HOME</Typography></NavLink>
-            <div>
+          </IconButton>
+         <div style={{margin:'0 10px'}}>
+          <Link to={HOME_PAGE} style={{textDecorationLine:'none' }}>
+          <Typography
+            variant="h5"
+       
+            sx={{
          
-          <FormControl sx={{ m: 1, minWidth: 250}}>
-          
-          <InputLabel id="demo-select-small-label" >Товаров на странице</InputLabel>
-  <Select
-  labelId="demo-select-small-label"
-  id="demo-select-small"
-  value={age}
-  onChange={handleChange}
-  // label="Age"  
-  >
-    
-    <MenuItem value={10}>10</MenuItem>
-    <MenuItem value={20}>20</MenuItem>
-    <MenuItem value={30}>30</MenuItem>
-  </Select>
-</FormControl>
-</div>
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: '#90EE90',
+              textDecoration: 'none',
+              marginRight:'50px'
+            }}
+          >
+            CLIMATE
+          </Typography>
+          </Link>
+          </div>
+
+         
+            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center',marginLeft:'auto' }}>
+            <IconButton
+        aria-label="more"
+        id="long-button"
+        aria-controls={open ? 'long-menu' : undefined}
+        aria-expanded={open ? 'true' : undefined}
+        aria-haspopup="true"
+        onClick={handleClick}>
+         <MoreVertIcon />
+         </IconButton>
+         <Menu
+        id="long-menu"
+        MenuListProps={{
+          'aria-labelledby': 'long-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: '20ch',
+          },
+        }}
+      >
+           
+            <Link to={ABOUT_ROUTE} style={{textDecorationLine:'none'}}>
+            <Button variant="text" sx={{margin:2}}>
+                  О нас
+                  </Button>
+                </Link>
+                <Link to={CONTACT_ROUTE} style={{textDecorationLine:'none'}}>
+                <Button variant="text" sx={{margin:2}}>
+                 Контакты
+                  </Button>
+                </Link>
+                </Menu>
+                </Box>
+
+<Link to={CART_ROUTE} style={{textDecorationLine:'none', marginLeft:'20px' }}>
+            <Typography  noWrap component="div" sx={{ marginRight:'20px',color: 'white'}}>
+              <Box sx={{display:'flex'}}>
+            <ProductionQuantityLimitsIcon color='warning'/><Typography variant="caption">{totalItems}</Typography>
+            </Box>
+            </Typography>
+          </Link>
         </Toolbar>
-
-
       </AppBar>
       <Box
         component="nav"
@@ -163,11 +216,14 @@ function Catalog() {
       >
         <Toolbar />
     <Box >
-      <Shop pages={age}/>
+      <Shop/>
     </Box>
       </Box>
     </Box>
+    
     </Container>
+    <Footer/>
+    </>
     );
 }
 

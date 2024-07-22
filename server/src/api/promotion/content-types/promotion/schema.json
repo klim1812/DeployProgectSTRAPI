@@ -4,7 +4,8 @@
   "info": {
     "singularName": "promotion",
     "pluralName": "promotions",
-    "displayName": "Promotion"
+    "displayName": "Promotion",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,17 +16,23 @@
       "type": "string"
     },
     "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "description": {
       "type": "text"
+    },
+    "Seo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.seo"
     }
   }
 }

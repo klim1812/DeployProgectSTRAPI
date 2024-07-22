@@ -29,9 +29,7 @@ function MenuSubcategory({dataS}) {
             <ListItem key={dataS.id} disablePadding onClick={handleChange}>
               <ListItemButton component="a" href="#simple-list" onClick={() =>{
                 make_subcategory(dataS.id)}}>
-              <ListItemIcon>
-                  <ArrowRightIcon />
-                </ListItemIcon>
+             
                <ListItemText>{dataS.attributes.name}</ListItemText>
               </ListItemButton>
               

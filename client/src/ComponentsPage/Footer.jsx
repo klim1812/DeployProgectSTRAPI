@@ -1,20 +1,18 @@
 import React from 'react';
-import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import FolderIcon from '@mui/icons-material/Folder';
-import { Container } from '@mui/material';
-import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
+import { CONTACT_ROUTE } from '../utils';
+
 
 function Footer() {
   const [value, setValue] = React.useState(0);
   
     return (
          
-        // <Paper sx={{position:'fixed', bottom: 0 ,left:50,right:50}} elevation={10} >
       <BottomNavigation
         showLabels
         value={value}
@@ -23,11 +21,10 @@ function Footer() {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        <BottomNavigationAction label="Недавно просмотренные" icon={<RestoreIcon />} />
+        <BottomNavigationAction label="Избранные товары" icon={<FavoriteIcon />} />
+        <BottomNavigationAction label="Показать на карте" icon={<Link to={CONTACT_ROUTE}><LocationOnIcon /></Link>} />
       </BottomNavigation>
-      // </Paper>
     
     );
 }

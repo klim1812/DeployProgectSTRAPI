@@ -1,19 +1,15 @@
-import * as React from 'react';
+import  React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Skeleton from '@mui/material/Skeleton';
 import Header from '../ComponentsPage/Header';
 import CarouselUi from '../ComponentsPage/CarouselUi';
 import { PRODUCT } from '../ApolloQuery/Product';
-import { useQuery,useReactiveVar } from '@apollo/client';
-import { make_productid } from '..';
+import { useQuery} from '@apollo/client';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -23,6 +19,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Footer from '../ComponentsPage/Footer';
+import { Seo } from '../Seo/Seo';
+import { useCart } from 'react-use-cart';
+import { HOST_STRAPI } from '../utils';
+import AdbIcon from '@mui/icons-material/Adb';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -48,19 +50,21 @@ function createData(name, size, quantity) {
 
 
 function Media(props) {
-  const product_id= useReactiveVar(make_productid);
+  const [size,setSize] = useState(false);
+  const {addItem} = useCart();
   const currentUrl = window.location.pathname;
   let del = '/product_page/';
 let page_id =currentUrl.replace(del,'')
-  console.log(product_id)
-  const {data:dataOneProduct, loading:load,error} = useQuery(PRODUCT, {variables: {id:page_id}});
-
+  
+  const {data:dataOneProduct, loading:load,error} = useQuery(PRODUCT, {variables: {id:sessionStorage.getItem('product_id')}});
+  
   if(load){
     return<h2>...loading</h2>
 }
 if(error){
     return<h2>Error...</h2>
 };
+console.log(dataOneProduct.product)
 const product_object = dataOneProduct.product.data.attributes;
 const imageList =product_object.image.data
 const rows = [
@@ -69,36 +73,53 @@ const rows = [
   createData('Тепловая мощность', product_object.heatPower,'kWt'),
   createData('Мощность Btu', product_object.powerBtu,'Btu/h'),
   createData('Тип фреона', product_object.freon,'--'),
-  createData('Тип компрессора',product_object.compressorType,'--'),
-  createData('Холодовая мощность',product_object.coolPower,'kWt'),
-  createData('Тепловая мощность', product_object.heatPower,'kWt'),
-  createData('Мощность Btu', product_object.powerBtu,'Btu/h'),
-  createData('Тип фреона', product_object.freon,'--'),
+  createData('Уровень шума',product_object.noise,'db'),
+  createData('Количество Фаз',product_object.phases,'--'),
+  createData('Минимальная t* улицы', product_object.workUp,'--'),
+  createData('Габариты нар.блока', product_object.sizeOut ,'mm'),
+  createData('Габариты вн.блока', product_object.sizeIn,'mm'),
 ];
+console.log(imageList)
+const handleClick = () =>{
+   
+  setSize(true);
+};
+const handleUpClick = () =>{
+setSize(false);
+};
 
-
-console.log(product_object)
+let cartImage = imageList.map(el => el.attributes.url)
+console.log(cartImage )
+const handleCartClick = () =>{
+  addItem({id:page_id,name:product_object.name,model:product_object.model,
+    price:product_object.price,image:HOST_STRAPI + cartImage});
+  };
 
   const { loading = false } = props;
 
-
   return (
+    <>
+           <Seo
+        title={product_object.model}
+        description={product_object.description}
+        type="webapp"
+        name={product_object.brand}
+      />
     <Card sx={{ maxWidth: "xl", m: 2, minHeight:"100vh" }}>
       <CardHeader
         avatar={
           loading ? (
             <Skeleton animation="wave" variant="circular" width={40} height={40} />
           ) : (
-            <Avatar
-              alt="Ted talk"
-              src="https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg"
-            />
+            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           )
         }
         action={
           loading ? null : (
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
+            <IconButton aria-label="settings" onMouseDown={handleClick}  onMouseUp={
+              handleUpClick} onClick={handleCartClick}>
+              <AddShoppingCartIcon color={size ? 'secondary' : 'warning'} fontSize={size ? 'large' : 'medium' }/>
+              {/* <MoreVertIcon /> */}
             </IconButton>
           )
         }
@@ -126,7 +147,7 @@ console.log(product_object)
       {loading ? (
         <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
       ) : (
-        <CarouselUi image ={imageList}/>
+        <CarouselUi data ={product_object } />
      
       )}
 
@@ -154,7 +175,7 @@ console.log(product_object)
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+            <StyledTableRow key={row.slug}>
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
@@ -172,6 +193,7 @@ console.log(product_object)
         )}
       </CardContent>
     </Card>
+    </>
   );
 }
 
@@ -182,9 +204,9 @@ Media.propTypes = {
 export default function Product() {
   return (
     <div>
-        <Header/>
-     
+      {/* <Header/> */}
       <Media />
+      <Footer/>
     </div>
   );
 }

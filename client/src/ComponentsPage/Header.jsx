@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { CART_ROUTE, CATALOG_ROUTE, HOME_PAGE, SHOP_ROUTE } from '../utils';
+import { Link } from 'react-router-dom';
+import { ABOUT_ROUTE, CART_ROUTE, CATALOG_ROUTE, CONTACT_ROUTE, HOME_PAGE,AUTH_ROUTE } from '../utils';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,25 +9,25 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-// import { Link } from '@mui/material';
 import { useTheme} from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import {ColorModeContext} from './Layout';
+import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
+import { useCart } from "react-use-cart";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-
-const nav_pages = [ CATALOG_ROUTE, CART_ROUTE];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
+const settings = [<Link to={AUTH_ROUTE}><Button variant="text"  >Авторизация</Button></Link>,<Button variant="text" onClick={
+  ()=>localStorage.clear()}>Выйти из профиля</Button>];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const {totalItems} = useCart();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -45,19 +45,19 @@ function Header() {
   };
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
+
     return (
    
       <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{display:'flex', flexFlow: 'row wrap'}}>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <MenuItem  >
-          <NavLink to={HOME_PAGE} style={{textDecorationLine:'none'}}>
+          <Link to={HOME_PAGE} style={{textDecorationLine:'none'}}>
           <Typography
             variant="h6"
             noWrap
             component="a"
-            // href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -68,9 +68,9 @@ function Header() {
               textDecoration: 'none',
             }}
           >
-            CLA PRO
+            CLIMATE
           </Typography>
-          </NavLink>
+          </Link>
           </MenuItem>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -85,33 +85,50 @@ function Header() {
             </IconButton>
             <Menu
               id="menu-appbar"
+              // id="long-menu"
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
+            
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' }, 
-              }}
+              
             >
-              {nav_pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu} >
-                 {<NavLink to={page} variant="button" color="interit" style={{textDecorationLine:'none'}}>{page}</NavLink>}
-                </MenuItem>
-              ))}
+              <Box sx={{
+                display: 'flex', flexDirection: 'column'
+              }}>
+              <Link to={CATALOG_ROUTE} style={{textDecorationLine:'none'}}>
+              <Button variant="text" sx={{margin:2}} onClick={handleCloseNavMenu}>
+                  Каталог
+                </Button>
+                </Link>
+
+                <Link to={ABOUT_ROUTE} style={{textDecorationLine:'none'}}>
+                <Button variant="text" sx={{margin:2}} onClick={handleCloseNavMenu}>
+                  О нас
+                  </Button>
+                </Link>
+
+                <Link to={CONTACT_ROUTE} style={{textDecorationLine:'none'}}>
+                <Button variant="text" sx={{margin:2}} onClick={handleCloseNavMenu}>
+                  Контакты
+                  </Button>
+                </Link>
+             
+                 <Link to={CART_ROUTE}  style={{textDecorationLine:'none'}}>
+                 <Button variant="text" sx={{margin:2}} onClick={handleCloseNavMenu}>
+                 Корзина
+                 </Button>
+                 </Link>
+
+                 </Box>
+
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           
-          <NavLink to={HOME_PAGE} style={{textDecorationLine:'none'}}>
-          
+          {/* <Link to={HOME_PAGE} style={{textDecorationLine:'none' ,margin:'auto'}}>
           <Typography
             variant="h5"
             noWrap
@@ -126,54 +143,53 @@ function Header() {
               letterSpacing: '.3rem',
               color: '#90EE90',
               textDecoration: 'none',
+              
             }}
           >
-            CLA PRO
+            CLIMATE
           </Typography>
-          </NavLink>
+          </Link> */}
          
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {nav_pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {<NavLink to={page}    style={({ isActive, isPending, isTransitioning }) => {
-    return {
-      fontWeight: isActive ? "bold" : "",
-      color: isActive ? "#90EE90" : "white",
-      viewTransitionName: isTransitioning ? "slide" : "",
-      textDecorationLine:'none'
-    };
-  }}
-  >{page}</NavLink>}
-              </Button>
-            ))}
-          </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+          <Link to={CATALOG_ROUTE} style={{textDecorationLine:'none'}}>
+          <Typography variant="h6"  sx={{ minWidth: 100,color: 'white' }}>Каталог</Typography>
+               
+                </Link>
+            
+            <Link to={ABOUT_ROUTE} style={{textDecorationLine:'none'}}>
+            <Typography variant="h6" sx={{ minWidth: 100,color: 'white' }}>О нас</Typography>
+              
+                </Link>
+                <Link to={CONTACT_ROUTE} style={{textDecorationLine:'none'}}>
+                <Typography variant="h6"  sx={{ minWidth: 100 ,color: 'white'}}>Контакты</Typography>
+             
+                </Link>
+        
+                </Box>
          
-          {/* <Box
-      sx={{
-        display: 'flex',
-        width: '10%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        bgcolor: 'background.default',
-        color: 'text.primary',
-        borderRadius: 1,
-        p: 3,
-      }}
-    >
-      {theme.palette.mode} mode */}
-      <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+            
+            
+                <Link to={CART_ROUTE}>
+    
+       
+         <Box sx={{display:'flex'}}>
+            <ProductionQuantityLimitsIcon color='warning'/><Typography variant="caption">{totalItems}</Typography>
+            </Box>
+            
+        </Link>
+           
+            
+          </Box> 
+         
+      <IconButton sx={{ ml: 1 ,marginRight:'30px'}} onClick={colorMode.toggleColorMode} color="inherit">
         {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>
-    {/* </Box> */}
-
+    
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <MoreVertIcon/>
               </IconButton>
             </Tooltip>
             <Menu
@@ -192,8 +208,8 @@ function Header() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {settings.map((setting,i) => (
+                <MenuItem key={i} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
