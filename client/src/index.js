@@ -18,7 +18,7 @@ export const make_powerfilter = makeVar([]);
 export const make_compressorfilter = makeVar([]);
 export const make_pagination = makeVar([1]);
 export const make_sum = makeVar([0,0]);
-export const make_openauth = makeVar();
+
 
 
 const httpLink = createHttpLink({
@@ -51,7 +51,7 @@ export const client = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   
-  <React.StrictMode>
+  // <React.StrictMode>
   <BrowserRouter>
   <ErrorBoundary>
   <ApolloProvider client={client}>
@@ -67,7 +67,7 @@ root.render(
   </ApolloProvider>
   </ErrorBoundary>
   </BrowserRouter>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 

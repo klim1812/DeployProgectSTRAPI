@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ABOUT_ROUTE, CART_ROUTE, CATALOG_ROUTE, CONTACT_ROUTE, HOME_PAGE,AUTH_ROUTE } from '../utils';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -21,10 +21,11 @@ import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantity
 import { useCart } from "react-use-cart";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const settings = [<Link to={AUTH_ROUTE}><Button variant="text"  >Авторизация</Button></Link>,<Button variant="text" onClick={
-  ()=>localStorage.clear()}>Выйти из профиля</Button>];
+
 
 function Header() {
+
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const {totalItems} = useCart();
@@ -43,6 +44,9 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  function setRoute(e){
+    navigate(e)
+};
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
 
@@ -51,28 +55,10 @@ function Header() {
       <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{display:'flex', flexFlow: 'row wrap'}}>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <MenuItem  >
-          <Link to={HOME_PAGE} style={{textDecorationLine:'none'}}>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: '#90EE90',
-              textDecoration: 'none',
-            }}
-          >
-            CLIMATE
-          </Typography>
-          </Link>
-          </MenuItem>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+        <AdbIcon sx={{color: '#7FFF00'}} />
+
+        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -84,11 +70,15 @@ function Header() {
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
-              // id="long-menu"
+              id="menu-appbar"             
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
                 horizontal: 'left',
               }}
             
@@ -99,94 +89,61 @@ function Header() {
               <Box sx={{
                 display: 'flex', flexDirection: 'column'
               }}>
-              <Link to={CATALOG_ROUTE} style={{textDecorationLine:'none'}}>
-              <Button variant="text" sx={{margin:2}} onClick={handleCloseNavMenu}>
+              
+              <Button variant="text" sx={{margin:2}} onClick={()=>{handleCloseNavMenu();setRoute(CATALOG_ROUTE)}}>
                   Каталог
                 </Button>
-                </Link>
-
-                <Link to={ABOUT_ROUTE} style={{textDecorationLine:'none'}}>
-                <Button variant="text" sx={{margin:2}} onClick={handleCloseNavMenu}>
+              
+                <Button variant="text" sx={{margin:2}} onClick={()=>{handleCloseNavMenu();setRoute(ABOUT_ROUTE)}}>
                   О нас
                   </Button>
-                </Link>
-
-                <Link to={CONTACT_ROUTE} style={{textDecorationLine:'none'}}>
-                <Button variant="text" sx={{margin:2}} onClick={handleCloseNavMenu}>
+                        
+                <Button variant="text" sx={{margin:2}} onClick={()=>{handleCloseNavMenu();setRoute(CONTACT_ROUTE)}}>
                   Контакты
                   </Button>
-                </Link>
-             
-                 <Link to={CART_ROUTE}  style={{textDecorationLine:'none'}}>
-                 <Button variant="text" sx={{margin:2}} onClick={handleCloseNavMenu}>
+                                        
+                <Button variant="text" sx={{margin:2}} onClick={()=>{handleCloseNavMenu();setRoute(CART_ROUTE)}}>
                  Корзина
                  </Button>
-                 </Link>
-
+                
                  </Box>
 
             </Menu>
           </Box>
           
-          {/* <Link to={HOME_PAGE} style={{textDecorationLine:'none' ,margin:'auto'}}>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: '#90EE90',
-              textDecoration: 'none',
-              
-            }}
-          >
-            CLIMATE
-          </Typography>
-          </Link> */}
+      
          
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-          <Link to={CATALOG_ROUTE} style={{textDecorationLine:'none'}}>
-          <Typography variant="h6"  sx={{ minWidth: 100,color: 'white' }}>Каталог</Typography>
-               
-                </Link>
+          <Box sx={{ justifyContent: 'space-around', alignItems:'center',display: { xs: 'none', md: 'flex' }}}>
+
+            <Box sx={{display: 'flex',justifyContent: 'space-around',margin:'0 10px'}}>
             
-            <Link to={ABOUT_ROUTE} style={{textDecorationLine:'none'}}>
-            <Typography variant="h6" sx={{ minWidth: 100,color: 'white' }}>О нас</Typography>
-              
-                </Link>
-                <Link to={CONTACT_ROUTE} style={{textDecorationLine:'none'}}>
-                <Typography variant="h6"  sx={{ minWidth: 100 ,color: 'white'}}>Контакты</Typography>
-             
-                </Link>
-        
+                <Typography variant="h6"  sx={{ minWidth: 100,color: '#7FFF00',marginRight:10 }} onClick={
+                   ()=>setRoute(HOME_PAGE)}>CLIMATE</Typography>
+          
+                <Typography variant="h6"  sx={{ minWidth: 100,color: 'white' }} onClick={
+                   ()=>setRoute(CATALOG_ROUTE)}>Каталог</Typography>
+                                               
+                <Typography variant="h6" sx={{ minWidth: 100,color: 'white' }} onClick={
+                   ()=>setRoute(ABOUT_ROUTE)}>О нас</Typography>
+                             
+                <Typography variant="h6"  sx={{ minWidth: 100 ,color: 'white' }} onClick={
+                  ()=>setRoute(CONTACT_ROUTE)}>Контакты</Typography>
+                                  
                 </Box>
-         
-            
-            
-                <Link to={CART_ROUTE}>
-    
-       
-         <Box sx={{display:'flex'}}>
-            <ProductionQuantityLimitsIcon color='warning'/><Typography variant="caption">{totalItems}</Typography>
-            </Box>
-            
-        </Link>
-           
-            
+                                              
+                                                
           </Box> 
-         
-      <IconButton sx={{ ml: 1 ,marginRight:'30px'}} onClick={colorMode.toggleColorMode} color="inherit">
+
+           
+      <IconButton sx={{ marginRight:'30px',marginLeft:'auto'}} onClick={colorMode.toggleColorMode} color="inherit">
         {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>
+
+      <Box  onClick={()=>setRoute(CART_ROUTE)} >
+            <ProductionQuantityLimitsIcon color='warning'/><Typography variant="caption">{totalItems}</Typography>
+            </Box> 
     
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0,marginLeft:'20px' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <MoreVertIcon/>
@@ -208,11 +165,12 @@ function Header() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting,i) => (
-                <MenuItem key={i} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+            <MenuItem onClick={()=>{handleCloseNavMenu();setRoute(AUTH_ROUTE)}}>
+                  <Typography textAlign="center">Авторизация</Typography>
                 </MenuItem>
-              ))}
+                <MenuItem onClick={()=>{handleCloseUserMenu();localStorage.clear()}}>
+                  <Typography textAlign="center">Выйти из профиля</Typography>
+                </MenuItem>
             </Menu>
           </Box>
  

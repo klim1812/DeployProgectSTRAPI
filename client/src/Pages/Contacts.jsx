@@ -4,11 +4,10 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
-import Header from '../ComponentsPage/Header';
-import Footer from '../ComponentsPage/Footer';
 import { GOOGLE_MAPS_API_KEY } from '../utils';
-import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
+import {APIProvider, Map, AdvancedMarker} from '@vis.gl/react-google-maps';
 import { Typography } from '@mui/material';
+// import {AdvancedMarker} from './advanced-marker';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -19,19 +18,14 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-
-
 export default function Contacts() {
 
   const position = {lat: 53.54992, lng: 10.00678};
 
 
- 
-
-
   return (
     <>
-    {/* <Header/> */}
+    
     <Box sx={{ width: '100%' }}>
         <Paper>
       <Stack spacing={6}>
@@ -48,7 +42,7 @@ export default function Contacts() {
       gestureHandling={'greedy'}
       disableDefaultUI={true}
     >
-      <Marker position={position} />
+      <AdvancedMarker position={position} />
       </Map>
   </APIProvider>
     
@@ -57,7 +51,6 @@ export default function Contacts() {
       </Stack>
       </Paper>
     </Box>
-    <Footer/>
     </>
   );
 };

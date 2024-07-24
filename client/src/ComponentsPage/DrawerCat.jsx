@@ -1,20 +1,17 @@
 import React from "react";
 import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import BathtubIcon from '@mui/icons-material/Bathtub';
-import MailIcon from '@mui/icons-material/Mail';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { useQuery } from '@apollo/client';
 import { CATEGORIES } from '../ApolloQuery/Categories';
 import ItemAccordion from "./ItemAccordion";
+import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
+import { HOME_PAGE } from "../utils";
+
 
 function DrawerCat(){
-
+  const navigate = useNavigate();
     const {data, loading,error} = useQuery(CATEGORIES);
     if(loading){
         return<h2>...loading</h2>
@@ -27,7 +24,26 @@ function DrawerCat(){
    
     return(
     <div>
-      <Toolbar />
+      <Toolbar>  <Box style={{margin:'0 10px'}} onClick={()=>navigate(HOME_PAGE)}>
+          
+          <Typography
+            variant="h5"
+       
+            sx={{
+         
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: '#90EE90',
+              textDecoration: 'none',
+              marginRight:'50px'
+            }}
+          >
+            CLIMATE
+          </Typography>
+          
+          </Box> </Toolbar>
       <Divider />
       <>
         {categories_data.map((text) => (

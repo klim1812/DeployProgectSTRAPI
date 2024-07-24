@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 
@@ -18,8 +17,8 @@ const style = {
 };
 
 export default function MistakeConfirmParol() {
+  
   const [opens, setOpens] = React.useState(true);
-//   const handleOpen = () => setOpens(open);
   const handleClose = () => setOpens(false);
 
   return (

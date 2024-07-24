@@ -2,9 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import Header from '../ComponentsPage/Header';
-import Footer from '../ComponentsPage/Footer';
 import { Typography } from '@mui/material';
 
 export default function About() {
@@ -28,7 +25,7 @@ export default function About() {
         ))}
       </ImageList>
     </Box>
-    <Footer/>
+    
     </>
   );
 }

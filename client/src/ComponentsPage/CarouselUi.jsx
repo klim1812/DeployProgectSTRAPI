@@ -12,6 +12,7 @@ export default function CarouselUi(data){
                 data.data.image.data.map( (item, i) =>    <Paper sx={{maxWidth: 500 ,marginLeft:'auto', marginRight:'auto'}} key={item.attributes.url}>
                
                 <CardMedia
+                key={item.attributes.url}
             component="img"
             width="12"
             height="500"

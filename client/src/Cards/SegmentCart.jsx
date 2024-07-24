@@ -1,5 +1,5 @@
 import React  from 'react';
-import Box from '@mui/material/Box';
+import  Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
@@ -18,7 +18,7 @@ import { useCart } from "react-use-cart";
     return (
    <>
    
-      <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-evenly'}}>
+      <Card sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-evenly',margin:1}}>
        
       <CardMedia component="img"
         sx={{ height: 140, width: 140 }} image={row.image}/>
@@ -30,7 +30,7 @@ import { useCart } from "react-use-cart";
        {row.brand} 
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        {row.model} 
+        {row.model}
         </Typography>
         <Typography variant="body2">
         {row.price}$ 
@@ -53,7 +53,7 @@ import { useCart } from "react-use-cart";
       <Button variant="outlined" onClick={() => removeItem(row.id)} >Удалить</Button>
       </CardActions>
       
-    </Box>
+    </Card>
     
     </>
     );

@@ -1,11 +1,10 @@
 import React from 'react';
-import { Outlet,Link } from 'react-router-dom';
+import { Outlet} from 'react-router-dom';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Divider from '@mui/material/Divider';
 import Header from './Header';
-import {ABOUT_ROUTE} from '../utils';
+import Footer from './Footer';
 
 export const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
@@ -47,8 +46,8 @@ function Layout() {
           <Outlet/>
         
         </main>
-        <Divider/>
-        {/* <Footer/> */}
+        {/* <Divider/> */}
+        <Footer/>
         </Container>
         </ThemeProvider>
          </ColorModeContext.Provider>

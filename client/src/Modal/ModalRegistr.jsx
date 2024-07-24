@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
 import Button from '@mui/material/Button';
-import Backdrop from '@mui/material/Backdrop';
 import { Box, Container,Typography,Modal } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useMutation } from '@apollo/client';
@@ -9,16 +8,14 @@ import MistakeConfirmParol from './ModalMistake';
 import MistakeStrictField from './ModalMistakeField';
 import MistakeServer from './ModalMistakeServer';
 import SuccesRegistr from './ModalSuccesRegistr';
-import ModalAuth from './ModalAuth';
-import { NavLink, Navigate } from 'react-router-dom';
-import { CART_ROUTE, CATALOG_ROUTE } from '../utils';
+import { useNavigate } from 'react-router-dom';
+import { CART_ROUTE } from '../utils';
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    maxWith: 600,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     pt: 2,
@@ -27,14 +24,12 @@ const style = {
     borderRadius:5
   };
 
-  export default function ModalRegistr({closed}) {
-    const [open, setOpen] = useState(true);
-    const [hasError,setHasError] = useState(false);
+  export default function ModalRegistr() {
+    const navigate = useNavigate();
     const [username,setUsername] = useState("");
     const [parol,setParol] = useState("");
     const [confirmParol,setConfirmParol] = useState("");
     const [email,setEmail] = useState("");
-    const [role,setRole] = useState("");
     const [phone,setPhone] = useState("");
     const [address,setAddress] = useState("");
     const [blockedParol,setBlockedParol] = useState(false);
@@ -45,9 +40,7 @@ const style = {
     if(loading){
       return<h2>...loading</h2>
   }
-    const handleCloseRegistrIn = () => {
-        closed(true);
-    };
+
 
   const inputUsername = (e) => setUsername( e.target.value);
   const inputParol = (e) => {setParol(e.target.value);
@@ -64,8 +57,6 @@ const style = {
     const disabledParol = () => {
      setBlockedParol(parol === confirmParol ? true :'')};
 
-     const strictFieldOpen =() =>{
-          setMistakeStrictField(username && parol && email && phone ? true : '')};
 
     function mistakeParolOpen(){
       if(parol !== confirmParol)
@@ -77,28 +68,28 @@ const style = {
           phone: phone,address:address }})}
        
         };
- 
+        function setRoute(e){
+          navigate(e)
+     };
 
  
     return (
    
          <Modal open={true}>
-          <Container  sx={{...style}}>
-          <NavLink to={CART_ROUTE}><Button>Closed</Button></NavLink>
+          <Container  sx={{...style,maxWidth:'550px'}}>
+        <Button onClick={()=>setRoute(CART_ROUTE)}>Closed</Button>
       <Box sx={{
-  
-  minWidth:'40%',
-
+      
       bgcolor: 'background.paper',
-  bgcolor:''}}>
+  }}>
         <Box sx={{textAlign:'center'}}><Typography variant='h6'>Заполните форму регистрации</Typography></Box>
 
-        <TextField label="Имя,Фамилия *" variant="filled" color="primary" focused fullWidth  onChange={inputUsername}/>
-        <TextField label="Введите Email *" variant="filled" color="primary" focused fullWidth onChange={inputEmail}/>
-        <TextField label="Придумайте Пароль *" variant="filled" color="primary" focused fullWidth onChange={inputParol}/>
-        <TextField label="Повторите пароль *" variant="filled" color="primary" focused fullWidth disabled={blockedParol} onKeyUp={disabledParol} onChange={inputConfirmParol}/>
-        <TextField label="Номер телефона *" variant="filled" color="primary" focused fullWidth onChange={inputPhone}/>
-        <TextField label="Адрес доставки" variant="filled" color="primary" focused fullWidth onChange={inputAddress}/>
+        <TextField label="Имя,Фамилия *" variant="filled" color="primary" focused fullWidth  onChange={inputUsername} sx={{margin:'5px'}}/>
+        <TextField label="Введите Email *" variant="filled" color="primary" focused fullWidth onChange={inputEmail} sx={{margin:'5px'}}/>
+        <TextField label="Придумайте Пароль *" variant="filled" color="primary" focused fullWidth onChange={inputParol} sx={{margin:'5px'}}/>
+        <TextField label="Повторите пароль *" variant="filled" color="primary" focused fullWidth disabled={blockedParol} onKeyUp={disabledParol} onChange={inputConfirmParol} sx={{margin:'5px'}}/>
+        <TextField label="Номер телефона *" variant="filled" color="primary" focused fullWidth onChange={inputPhone} sx={{margin:'5px'}}/>
+        <TextField label="Адрес доставки" variant="filled" color="primary" focused fullWidth onChange={inputAddress} sx={{margin:'5px'}}/>
     {  username && parol && email && phone ?
      <Button variant="outlined" sx={{margin:1}} onClick={mistakeParolOpen} onMouseUp={Registration}>Регистрация</Button> : ''}
     </Box>

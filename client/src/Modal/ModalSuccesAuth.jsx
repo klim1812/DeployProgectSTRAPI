@@ -21,13 +21,13 @@ const style = {
 
 export default function SuccesAuth({isAuth}) {
   const [opens, setOpens] = useState(true); 
-  const [openOrder, setOpenOrder] = useState(false); 
+  // const [openOrder, setOpenOrder] = useState(false); 
   const handleClose = () => {
     localStorage.setItem('token',isAuth.login.jwt);
     localStorage.setItem('user_id',isAuth.login.user.id)
     setOpens(false);}
-  const handleOpenOrder = () => {setOpenOrder(true);localStorage.setItem('token',isAuth.login.jwt);localStorage.setItem('user_id',isAuth.login.user.id)};
-console.log(isAuth)
+//   const handleOpenOrder = () => {setOpenOrder(true);localStorage.setItem('token',isAuth.login.jwt);localStorage.setItem('user_id',isAuth.login.user.id)};
+// console.log(isAuth)
   return (
     <div>
       

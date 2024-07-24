@@ -1,15 +1,13 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { Box, Paper, Typography } from '@mui/material';
-import { HOST_STRAPI, SUBCATALOG_ROUTE,  } from '../utils';
-import { Link } from 'react-router-dom';
+import {  Paper, Typography } from '@mui/material';
+import {  SUBCATALOG_ROUTE,  } from '../utils';
+import { useNavigate } from 'react-router-dom';
 import { CATEGORIES } from '../ApolloQuery/Categories';
 import { useQuery } from '@apollo/client';
 import { make_category } from '..';
-import useMediaQuery from '@mui/material/useMediaQuery'; 
 import { styled } from '@mui/material/styles';
+import Icon from '@mui/material/Icon';
+
 
  const Item = styled(Paper)(({ theme }) => ({
       backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -17,13 +15,13 @@ import { styled } from '@mui/material/styles';
       padding: theme.spacing(1),
       textAlign: 'center',
       color: theme.palette.text.secondary,
-      minWidth:400,
-      margin:1
+      minWidth:300,
+      margin:2
       
     }));
 
  function CardCategory() {
-  const matches = useMediaQuery('(max-width:1000px)');
+  const navigate = useNavigate();
   const {data, loading,error} = useQuery(CATEGORIES);
   if(loading){
       return<h2>...loading</h2>
@@ -31,46 +29,20 @@ import { styled } from '@mui/material/styles';
   if(error){
       return<h2>Error...</h2>
   }
+function setRoute(e){
+     navigate(e)
+};
+  const dataC = data.categories.data
 
-  let dataC = data.categories.data
   
   return (
     <>
-    <Paper sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-evenly'}}>
-      
-    
-    {dataC.map(list =><Link to={SUBCATALOG_ROUTE} style={{textDecorationLine:'none'}} key={list.id+ 'cc'}>{matches ? <Link key={list.id+ 'cc'} to={SUBCATALOG_ROUTE} style={{
-      textDecorationLine:'none'}}><Item  onClick={() => {
-       
-        make_category(list.id)}}>{list.attributes.name}</Item></Link> :<Card sx={{ 
-        display: 'flex',  justifyContent:'space-between',maxWidth:'40vw',maxHeight:'80px', margin: 1}}
-    onClick={() => {
-      
-      make_category(list.id)}}
-      
-    >
-      
+    {<div><Paper>{dataC.map(list =><Item key={list.id+'category'} sx={{display:'flex',alignItems:'center',justifyContent:'space-around'}} onClick={
+      () =>{make_category(list.id);
+        setRoute(SUBCATALOG_ROUTE)}
+    }><Icon  sx={{color: '#7FFF00'}}>{list.attributes.icon}</Icon>
+    <Typography>{list.attributes.name}</Typography><Icon sx={{color: '#7FFF00'}}>{list.attributes.icon}</Icon></Item>)}</Paper></div>}
 
-    <Box sx={{ display: 'flex' }}>
-    
-      <CardContent sx={{ flex: '1 0 auto' }}>
-        <Typography component="div" variant="h5">
-        {list.attributes.name}
-        </Typography>
-        <Typography variant="caption" color="text.secondary" component="div">
-          Открыть каталог
-        </Typography>
-      </CardContent>
-    </Box>
-    <CardMedia
-   
-      component="img"
-      sx={{ width: 151 }}
-      image={HOST_STRAPI + list.attributes.image.data.map(item => item.attributes.url)}
-      alt={list.attributes.alt ? list.attributes.alt : ''}
-    />
-  </Card>}</Link>)}
-  </Paper>
   </>
   );
 }

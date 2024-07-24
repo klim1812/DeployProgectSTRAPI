@@ -7,9 +7,7 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import { useQuery } from '@apollo/client';
-import { CATEGORIES } from '../ApolloQuery/Categories';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CART_ROUTE, HOME_PAGE } from '../utils';
 import DrawerCat from '../ComponentsPage/DrawerCat';
 import Shop from './Shop';
@@ -17,9 +15,6 @@ import { Container } from '@mui/material';
 import FilterBox from '../ComponentsPage/FIlterBox';
 import Typography from '@mui/material/Typography';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
-import CircularProgress from '@mui/material/CircularProgress';
-import Stack from '@mui/material/Stack';
-import Footer from '../ComponentsPage/Footer';
 import { useCart } from 'react-use-cart';
 import { ABOUT_ROUTE,CONTACT_ROUTE } from '../utils';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -30,25 +25,14 @@ const drawerWidth = 300;
 const ITEM_HEIGHT = 48;
 
 function Catalog() {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const open = Boolean(anchorEl);
   const {totalItems} = useCart();
-  const {data: data_category, loading:load,error: data_error} = useQuery(CATEGORIES);
-  
-  if(load){
-    return   <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
-    <CircularProgress color="secondary" />
-    <CircularProgress color="success" />
-    <CircularProgress color="inherit" />
-  </Stack>
-  }
-  if(data_error){
-    return<h2>Error...</h2>
-  };
  
-  let categories_data = data_category.categories.data
+ 
  
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -71,8 +55,6 @@ function Catalog() {
     setAnchorEl(null);
   };
   
-  let data_card = categories_data.map(el => el.attributes.subcategories)
- 
 
     return (
       <>
@@ -98,8 +80,8 @@ function Catalog() {
             <MenuIcon />
             
           </IconButton>
-         <div style={{margin:'0 10px'}}>
-          <Link to={HOME_PAGE} style={{textDecorationLine:'none' }}>
+         <Box style={{margin:'0 10px'}} onClick={()=>navigate(HOME_PAGE)}>
+          
           <Typography
             variant="h5"
        
@@ -114,12 +96,11 @@ function Catalog() {
               marginRight:'50px'
             }}
           >
-            CLIMATE
+            Главная
           </Typography>
-          </Link>
-          </div>
+          
+          </Box>
 
-         
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center',marginLeft:'auto' }}>
             <IconButton
         aria-label="more"
@@ -145,27 +126,21 @@ function Catalog() {
           },
         }}
       >
-           
-            <Link to={ABOUT_ROUTE} style={{textDecorationLine:'none'}}>
-            <Button variant="text" sx={{margin:2}}>
+                      
+            <Button variant="text" sx={{margin:2}} onClick={()=>navigate(ABOUT_ROUTE)}>
                   О нас
-                  </Button>
-                </Link>
-                <Link to={CONTACT_ROUTE} style={{textDecorationLine:'none'}}>
-                <Button variant="text" sx={{margin:2}}>
-                 Контакты
-                  </Button>
-                </Link>
-                </Menu>
-                </Box>
+            </Button>
 
-<Link to={CART_ROUTE} style={{textDecorationLine:'none', marginLeft:'20px' }}>
-            <Typography  noWrap component="div" sx={{ marginRight:'20px',color: 'white'}}>
-              <Box sx={{display:'flex'}}>
-            <ProductionQuantityLimitsIcon color='warning'/><Typography variant="caption">{totalItems}</Typography>
+           <Button variant="text" sx={{margin:2}} onClick={()=>navigate(CONTACT_ROUTE)}>
+                 Контакты
+            </Button>
+                </Menu>
+
+                </Box>
+              <Box sx={{display:'flex'}} onClick={()=>navigate(CART_ROUTE)}>
+            <ProductionQuantityLimitsIcon color='warning' /><Typography variant="caption">{totalItems}</Typography>
             </Box>
-            </Typography>
-          </Link>
+
         </Toolbar>
       </AppBar>
       <Box
@@ -203,8 +178,8 @@ function Catalog() {
           open
         >
           <DrawerCat/>
-          <Toolbar />
-          <Divider />
+          {/* <Toolbar /> */}
+          {/* <Divider /> */}
           <FilterBox/>
         </Drawer>
     
@@ -214,7 +189,7 @@ function Catalog() {
        
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
-        <Toolbar />
+        {/* <Toolbar /> */}
     <Box >
       <Shop/>
     </Box>
@@ -222,7 +197,6 @@ function Catalog() {
     </Box>
     
     </Container>
-    <Footer/>
     </>
     );
 }

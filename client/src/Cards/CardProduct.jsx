@@ -11,9 +11,8 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { HOST_STRAPI, PRODUCT_ROUTE } from '../utils';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useCart } from 'react-use-cart';
 
@@ -30,9 +29,9 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function CardProduct({data}) {
+  const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);
   const [size,setSize] = React.useState(false);
-  const [color,setColor] = React.useState('warning');
   const {addItem} = useCart();
   
 
@@ -49,7 +48,7 @@ export default function CardProduct({data}) {
 
   const oneUrl = new Object(data.attributes.image.data.map(res => [res.attributes.url]));
 
-console.log(data.attributes.slug)
+
   return (
     <Card sx={{ minWidth: 345,maxWidth: 345,marginTop:1}} >
       
@@ -60,7 +59,7 @@ console.log(data.attributes.slug)
             handleUpClick();
             addItem({id:data.id,name:data.attributes.name,model:data.attributes.model,
               price:data.attributes.price,image:HOST_STRAPI + oneUrl[0]});
-            sessionStorage.setItem(data.id+'id',data.id);          
+            // sessionStorage.setItem(data.id+'id',data.id);          
               }} >
             <AddShoppingCartIcon color={size ? 'secondary' : 'warning'} fontSize={size ? 'large' : 'medium' }/>
           </IconButton>
@@ -68,14 +67,15 @@ console.log(data.attributes.slug)
         title={<Typography color='primary' >{data.attributes.name}</Typography>}
         subheader={<Typography color='primary' variant='h6'>{data.attributes.brand}</Typography>}
       />
-      <Link to={PRODUCT_ROUTE+'/'+ data.attributes.slug} style={{textDecorationLine:'none'}}>
+      
       <CardMedia
         component="img"
         height="194"
         image={HOST_STRAPI + oneUrl[0]}
         alt="Paella dish"
-        onClick={()=>sessionStorage.setItem('product_id',data.id)}
-      /></Link>
+        onClick={()=>{sessionStorage.setItem('product_id',data.id);navigate(PRODUCT_ROUTE+'/'+ data.attributes.slug)}}
+      />
+      
       <CardContent >
         <Typography variant="body2" color='primary'>
         Модель:{data.attributes.model}

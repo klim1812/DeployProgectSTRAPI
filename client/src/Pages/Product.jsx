@@ -6,7 +6,6 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Skeleton from '@mui/material/Skeleton';
-import Header from '../ComponentsPage/Header';
 import CarouselUi from '../ComponentsPage/CarouselUi';
 import { PRODUCT } from '../ApolloQuery/Product';
 import { useQuery} from '@apollo/client';
@@ -20,7 +19,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import Footer from '../ComponentsPage/Footer';
 import { Seo } from '../Seo/Seo';
 import { useCart } from 'react-use-cart';
 import { HOST_STRAPI } from '../utils';
@@ -64,7 +62,7 @@ let page_id =currentUrl.replace(del,'')
 if(error){
     return<h2>Error...</h2>
 };
-console.log(dataOneProduct.product)
+
 const product_object = dataOneProduct.product.data.attributes;
 const imageList =product_object.image.data
 const rows = [
@@ -79,7 +77,7 @@ const rows = [
   createData('Габариты нар.блока', product_object.sizeOut ,'mm'),
   createData('Габариты вн.блока', product_object.sizeIn,'mm'),
 ];
-console.log(imageList)
+
 const handleClick = () =>{
    
   setSize(true);
@@ -89,7 +87,7 @@ setSize(false);
 };
 
 let cartImage = imageList.map(el => el.attributes.url)
-console.log(cartImage )
+
 const handleCartClick = () =>{
   addItem({id:page_id,name:product_object.name,model:product_object.model,
     price:product_object.price,image:HOST_STRAPI + cartImage});
@@ -100,12 +98,13 @@ const handleCartClick = () =>{
   return (
     <>
            <Seo
+           
         title={product_object.model}
         description={product_object.description}
         type="webapp"
         name={product_object.brand}
       />
-    <Card sx={{ maxWidth: "xl", m: 2, minHeight:"100vh" }}>
+    <Card sx={{ maxWidth: "xl", m: 2, minHeight:"100vh" }} key={product_object.slug}>
       <CardHeader
         avatar={
           loading ? (
@@ -130,6 +129,7 @@ const handleCartClick = () =>{
               height={10}
               width="80%"
               style={{ marginBottom: 6 }}
+              
             />
           ) : (
            `${product_object.name}  ${product_object.brand}`
@@ -174,8 +174,8 @@ const handleCartClick = () =>{
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.slug}>
+          {rows.map((row,i) => (
+            <StyledTableRow key={i}>
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
@@ -204,9 +204,8 @@ Media.propTypes = {
 export default function Product() {
   return (
     <div>
-      {/* <Header/> */}
       <Media />
-      <Footer/>
+     
     </div>
   );
 }

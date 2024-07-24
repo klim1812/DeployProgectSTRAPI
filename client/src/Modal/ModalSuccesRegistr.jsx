@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Button } from '@mui/material';
-import { make_openauth } from '..';
 import { NavLink } from 'react-router-dom';
 import { AUTH_ROUTE } from '../utils';
 
@@ -21,10 +20,9 @@ const style = {
 };
 
 export default function SuccesRegistr() {
-  const [opens, setOpens] = useState(true); 
-//   const [openAuth, setOpenAuth] = useState(); 
+  const [opens, setOpens] = useState(true);  
   const handleClose = () => setOpens(false);
-  const handleOpenAuth = () => make_openauth(true);
+  
 
   return (
     <div>

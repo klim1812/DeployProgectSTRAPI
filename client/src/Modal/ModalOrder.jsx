@@ -2,7 +2,7 @@ import  React,{useState} from 'react';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import { Box, Typography } from '@mui/material';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,7 +10,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { CREATE_ORDER } from '../ApolloMutation/Order';
 import ModalEmail from './ModalEmail';
 import {  useCart } from "react-use-cart";
@@ -32,7 +32,7 @@ const style = {
 };
 
 
-export default function ModalOrder({order,close_order,data,all_summ}) {
+export default function ModalOrder({order,close_order,data}) {
   const [openEmail, setOpenEmail] = useState(false);
   const {cartTotal} = useCart();
   const [setCreateOrder,{loading ,error , data: order1}] = useMutation(CREATE_ORDER, { errorPolicy : "all" });
@@ -63,10 +63,6 @@ let emailStore = localStorage.getItem('email');
 
   const handleClose = () => close_order(false);
   
-  function cleanCart(){
-    localStorage.clear();
-    
-  };
   const isAuth = localStorage.getItem('token');
 
   return (
@@ -99,7 +95,7 @@ let emailStore = localStorage.getItem('email');
         </TableHead> 
         <TableBody>
           {data ? data.map((row) => (
-            <TableRow>
+            <TableRow key={row.model}>
            <TableCell>{row.name}</TableCell>
            <TableCell>{row.brand}</TableCell>
            <TableCell>{row.model}</TableCell>

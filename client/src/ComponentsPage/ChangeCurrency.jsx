@@ -43,7 +43,7 @@ function ChangeCurrency() {
   const EURO_USD = articles.filter(el => el.currencyCodeA === 978 & el.currencyCodeB === 840);
 
     return(
-        <Box maxWidth= 'xl' >
+        <Box maxWidth= 'xl' sx={{marginTop:1}}>
           <Paper sx={{
             display: 'flex',
             minHeight:'100%',
