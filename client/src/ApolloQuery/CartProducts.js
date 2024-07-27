@@ -13,7 +13,7 @@ query($arr:[ID]!){
         
         attributes{
           name
-          brand
+          brand_name
           model
           price
           image{

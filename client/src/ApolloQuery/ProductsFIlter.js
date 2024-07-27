@@ -5,14 +5,14 @@ export const PRODUCTSFILTER= gql
 `
 query($id:ID!){
     products(filters:{
-      subcategories:{
+      subcategory:{
         id:{eq:$id}
       }
     }){
       data{
         id
         attributes{
-          brand
+          brand_name
           powerBtu
           compressorType
       

@@ -9,7 +9,7 @@ query($id:ID!){
     data{
       attributes{
         name
-        brand
+        brand_name
         model
         slug
         compressorType
@@ -27,13 +27,11 @@ query($id:ID!){
         description      
         fin_pitch
         freon
-         Seo{
-      metaTitle
-      metaDescription
-      preventIndexing
-      keywords
-      alt
-    }
+        metaTitle
+        metaDescription
+       preventIndexing  
+       alt
+    
         image{
           data{
             attributes{

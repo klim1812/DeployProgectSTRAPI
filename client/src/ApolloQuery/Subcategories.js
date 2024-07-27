@@ -6,7 +6,7 @@ export const SUBCATEGORIES= gql
 `
 query($id:ID!){
     subcategories(filters:{
-      categories:{
+      category:{
         id:{
           eq:$id
         }

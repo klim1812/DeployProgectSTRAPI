@@ -6,7 +6,7 @@ export const PRODUCTS= gql
 `
 query($id:ID!,$ps:Int!, $pg:Int!){
     products(filters:{
-      subcategories:{
+      subcategory:{
         id:{eq:$id}
       }
     }
@@ -20,7 +20,7 @@ query($id:ID!,$ps:Int!, $pg:Int!){
         id
         attributes{
           name
-          brand
+        brand_name
           model
           slug
           price

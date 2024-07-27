@@ -65,7 +65,7 @@ export default function CardProduct({data}) {
           </IconButton>
         }
         title={<Typography color='primary' >{data.attributes.name}</Typography>}
-        subheader={<Typography color='primary' variant='h6'>{data.attributes.brand}</Typography>}
+        subheader={<Typography color='primary' variant='h6'>{data.attributes.brand_name}</Typography>}
       />
       
       <CardMedia

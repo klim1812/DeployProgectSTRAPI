@@ -19,14 +19,7 @@ query{
             }
           }
         }
-        subcategories{
-          data{
-            id
-            attributes{
-              name
-            }
-          }
-        }
+     
       }
     }
   }

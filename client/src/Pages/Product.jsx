@@ -102,7 +102,7 @@ const handleCartClick = () =>{
         title={product_object.model}
         description={product_object.description}
         type="webapp"
-        name={product_object.brand}
+        name={product_object.brand_name}
       />
     <Card sx={{ maxWidth: "xl", m: 2, minHeight:"100vh" }} key={product_object.slug}>
       <CardHeader
@@ -132,7 +132,7 @@ const handleCartClick = () =>{
               
             />
           ) : (
-           `${product_object.name}  ${product_object.brand}`
+           `${product_object.name}  ${product_object.brand_name}`
           
           )
         }
@@ -141,8 +141,10 @@ const handleCartClick = () =>{
             <Skeleton animation="wave" height={10} width="40%" />
           ) : (
             `Модель ${product_object.model}`
+            
           )
         }
+       
       />
       {loading ? (
         <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
@@ -159,6 +161,7 @@ const handleCartClick = () =>{
           </React.Fragment>
         ) : (
           <Box >
+            <Typography variant='h6' sx={{color: '#7FFF00'}}>Цена:{product_object.price}$</Typography>
             <Typography variant='h6'>Описание:</Typography>
             <Typography >{product_object.description}</Typography>
             <Typography variant='h6'>Технические характеристики:</Typography>

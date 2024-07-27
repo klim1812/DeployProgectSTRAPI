@@ -22,7 +22,7 @@ export const make_sum = makeVar([0,0]);
 
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:1337/graphql',
+  uri: 'https://strapi-179511-0.cloudclusters.net/graphql',
 });
 
 const helmetContext = {};
@@ -42,7 +42,7 @@ const authLink = setContext((_, { headers }) => {
 export const client = new ApolloClient({
   connectToDevTools: true,
   link: authLink.concat(httpLink),
-  uri:'http://localhost:1337/graphql',
+  uri:'https://strapi-179511-0.cloudclusters.net/graphql',
   cache
   :new InMemoryCache()
 });

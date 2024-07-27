@@ -1,4 +1,4 @@
-export   const  HOST_STRAPI="http://localhost:1337"
+export   const  HOST_STRAPI="https://strapi-179511-0.cloudclusters.net"
 
 export const ADMIN_ROUTE = '/admin'
 export const LOGIN_ROUTE = '/login'

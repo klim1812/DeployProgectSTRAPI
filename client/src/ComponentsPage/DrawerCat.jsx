@@ -47,7 +47,7 @@ function DrawerCat(){
       <Divider />
       <>
         {categories_data.map((text) => (
-          <ItemAccordion key={text.id} data={text}/>
+          <ItemAccordion key={text.id} text={text}/>
         ))}
       
       </>
