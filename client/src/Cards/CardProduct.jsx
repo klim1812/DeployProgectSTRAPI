@@ -11,16 +11,14 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { HOST_STRAPI, PRODUCT_ROUTE, TELEGRAM_ROUTE } from '../utils';
+import { HOST_STRAPI, PRODUCT_ROUTE } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useCart } from 'react-use-cart';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import Tooltip from '@mui/material/Tooltip';
 import Popover from '@mui/material/Popover';
-import Button from '@mui/material/Button';
-import {  Box, Link } from '@mui/material';
-import { blue } from '@mui/material/colors';
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -40,7 +38,7 @@ export default function CardProduct({data}) {
   const [size,setSize] = React.useState(false);
   const {addItem} = useCart();
   const currentUrl = window.location.href;
-console.log(currentUrl)
+  
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -70,7 +68,6 @@ const copyLink = () =>{
 }
 
 const open = Boolean(anchorEl);
-const id = open ? 'simple-popover' : undefined;
   const oneUrl = new Object(data.attributes.image.data.map(res => [res.attributes.url]));
 
 
@@ -85,7 +82,7 @@ const id = open ? 'simple-popover' : undefined;
             handleUpClick();
             addItem({id:data.id,name:data.attributes.name,model:data.attributes.model,
               price:data.attributes.price,image:HOST_STRAPI + oneUrl[0]});
-            // sessionStorage.setItem(data.id+'id',data.id);          
+                  
               }} >
             <AddShoppingCartIcon color={size ? 'secondary' : 'warning'} fontSize={size ? 'large' : 'medium' }/>
           </IconButton>

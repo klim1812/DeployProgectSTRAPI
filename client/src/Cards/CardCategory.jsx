@@ -6,8 +6,7 @@ import { CATEGORIES } from '../ApolloQuery/Categories';
 import { useQuery } from '@apollo/client';
 import { make_category } from '..';
 import { styled } from '@mui/material/styles';
-import Icon from '@mui/material/Icon';
-import {  Box, Link } from '@mui/material';
+import { Box} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
  const Item = styled(Paper)(({ theme }) => ({
@@ -36,7 +35,6 @@ function setRoute(e){
 };
   const dataC = data.categories.data
 
-  console.log(dataC)
   return (
     <Box sx={{ flexGrow: 1 }}>
      {!matches ? <Box>{dataC.map(elem =><Item key={elem.id} onClick={
@@ -49,7 +47,7 @@ function setRoute(e){
     } sx={{display:'flex'}}>
     <Box sx={{margin:3}}><Typography variant='h6'>{list.attributes.name}</Typography>
     <Typography variant='capture'>Открыть каталог</Typography></Box>
-    <img  style={{width:'100px',height:'100px',marginLeft:'auto'}}
+    <img alt={list.attributes.name} style={{width:'100px',height:'100px',marginLeft:'auto'}}
     src={HOST_STRAPI + list.attributes.image.data.map(el => el.attributes.url)}
      /></Item></Grid>)}</Grid>} 
 

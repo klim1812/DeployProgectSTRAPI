@@ -19,8 +19,6 @@ function ItemAccordion({text}) {
       return<h2>Error...</h2>
     };
     
-// let subcatalog = text.subcategories;
- console.log(data.subcategories.data)
    return (
       <>
             <Accordion key={text.id} >
