@@ -17,6 +17,7 @@ function FilterBox() {
   const data_shop = data.products.data;
 
   let brands = data_shop.map(el => el.attributes.brand_name);
+  
   let power = data_shop.map(el => el.attributes.powerBtu );
   let compressor = data_shop.map(el => el.attributes.compressorType );
   let repeat_brands = (brands.filter((text,index) => brands.indexOf(text) === index)).sort((a,b) => a-b);
@@ -28,20 +29,20 @@ function FilterBox() {
       <Box sx={{margin:3}}>
         <div>
         <Typography color='primary' variant='h6'>Производитель</Typography>
-        <div>{repeat_brands.map((item,index) =><div style={{display:'flex'}} key={index+'b'}><label><input type='checkbox'   style={{transform: 'Scale(1.5)'}} onChange={(e)=>{
+        <div>{repeat_brands.map((item,index) =><div style={{display:'flex'}} key={index}><label><input type='checkbox'   style={{transform: 'Scale(1.5)'}} onChange={(e)=>{
             make_brandfilter(e.target.checked ? [...make_brandfilter (),item]: make_brandfilter ().filter(elem=>elem !== item) )}} defaultChecked ={make_brandfilter().includes(item)} />
         </label><span style={{marginLeft:10}}>{item}</span></div>)}</div>
         
         </div>
         <div>
         <Typography color='primary' variant='h6'>Мощность, BTU/H</Typography>
-        <div>{repeat_power.map((item,index) =><div style={{display:'flex'}} key={index+'p'}><label><input type='checkbox'   style={{transform: 'Scale(1.5)' }} onChange={(e)=>{
+        <div>{repeat_power.map((item,index) =><div style={{display:'flex'}} key={index}><label><input type='checkbox'   style={{transform: 'Scale(1.5)' }} onChange={(e)=>{
             
             make_powerfilter(e.target.checked ? [...make_powerfilter (),item]: make_powerfilter ().filter(elem=>elem !== item) )}} defaultChecked ={make_powerfilter().includes(item)} /></label><span style={{marginLeft:10}}>{item}</span></div>)}</div>
         </div>
         <div>
         <Typography color='primary' variant='h6'>Тип компрессора</Typography>
-        <div>{repeat_compressor.map((item,index) =><div style={{display:'flex'}} key={index+'p'}><label><input type='checkbox'   style={{transform: 'Scale(1.5)' }} onChange={(e)=>{
+        <div>{repeat_compressor.map((item,index) =><div style={{display:'flex'}} key={index}><label><input type='checkbox'   style={{transform: 'Scale(1.5)' }} onChange={(e)=>{
             
             make_compressorfilter(e.target.checked ? [...make_compressorfilter (),item]: make_compressorfilter ().filter(elem=>elem !== item) )}} defaultChecked ={make_compressorfilter().includes(item)}/></label><span style={{marginLeft:10}}>{item}</span></div>)}</div>
         </div>

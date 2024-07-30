@@ -38,7 +38,7 @@ export default function CardProduct({data}) {
   const [size,setSize] = React.useState(false);
   const {addItem} = useCart();
   const currentUrl = window.location.href;
-  
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -93,7 +93,7 @@ const open = Boolean(anchorEl);
       
       <CardMedia
         component="img"
-        height="194"
+        height="250"
         image={HOST_STRAPI + oneUrl[0]}
         alt="Paella dish"
         onClick={()=>{sessionStorage.setItem('product_id',data.id);navigate(PRODUCT_ROUTE+'/'+ data.attributes.slug)}}

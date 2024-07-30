@@ -34,7 +34,7 @@ function Shop() {
   if(error){return<h2>Error...</h2>};
  
   let data_products = data.products.data;
- let data_filter = filter_brand.length > 0 ? data_products.filter(el =>  filter_brand.includes(el.attributes.brand)) :data.products.data;
+ let data_filter = filter_brand.length > 0 ? data_products.filter(el =>  filter_brand.includes(el.attributes.brand_name)) :data.products.data;
 
  data_filter = filter_power.length > 0 ? data_filter.filter(el =>  filter_power.includes(el.attributes.powerBtu )) :data_filter;
 
