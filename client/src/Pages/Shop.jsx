@@ -14,6 +14,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Shop() {
   const [age, setAge] = useState('');
@@ -25,7 +27,10 @@ function Shop() {
 
   const {data, loading,error} = useQuery(PRODUCTS, {variables: {id:id_subcategory, ps:age ? age : 10,pg:pagination[0]}});
 
-  if(loading){return<h2>...loading</h2>};
+  if(loading){return  <Backdrop
+    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    open={true}><CircularProgress color="inherit" />
+  </Backdrop>};
   if(error){return<h2>Error...</h2>};
  
   let data_products = data.products.data;
@@ -56,6 +61,7 @@ function Shop() {
   </Select>
 </FormControl>
 </div></Box>
+
       <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-between'}}>
       
       {data_filter.map(item => <CardProduct   data ={item} key={item.attributes.slug}/>)}

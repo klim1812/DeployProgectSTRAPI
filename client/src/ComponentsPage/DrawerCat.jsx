@@ -24,7 +24,7 @@ function DrawerCat(){
    
     return(
     <div>
-      <Toolbar>  <Box style={{margin:'0 10px'}} onClick={()=>navigate(HOME_PAGE)}>
+      <Toolbar>  <Box onClick={()=>navigate(HOME_PAGE)} sx={{marginLeft:'auto',marginRight:'auto'}}>
           
           <Typography
             variant="h5"
@@ -34,7 +34,7 @@ function DrawerCat(){
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.1rem',
               color: '#90EE90',
               textDecoration: 'none',
               marginRight:'50px'

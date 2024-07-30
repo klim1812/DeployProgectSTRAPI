@@ -51,10 +51,10 @@ function ChangeCurrency() {
         justifyContent:'space-evenly'
         
         }}>
-          <Box sx={{minWidth:100}}><Typography>Курс валют: {now.getDate()}/{now.getMonth()+1}/{now.getFullYear()}</Typography></Box>
-          <Box><Typography>USD/UAN {USD.map(item =>item.rateBuy.toFixed(2))}/{USD.map(item =>item.rateSell.toFixed(2))}</Typography></Box>
-          <Box><Typography>EURO/UAN {EURO.map(item =>item.rateBuy.toFixed(2))}/{EURO.map(item =>item.rateSell.toFixed(2))}</Typography></Box>
-          <Box><Typography>EURO/USD {EURO_USD.map(item =>item.rateBuy.toFixed(2))}/{EURO.map(item =>item.rateSell.toFixed(2))}</Typography></Box>
+          <Box sx={{minWidth:100}}><Typography variant="caption">Курс валют: {now.getDate()}/{now.getMonth()+1}/{now.getFullYear()}</Typography></Box>
+          <Box><Typography variant="caption">USD/UAN {USD.map(item =>item.rateBuy.toFixed(2))}/{USD.map(item =>item.rateSell.toFixed(2))}</Typography></Box>
+          <Box><Typography variant="caption">EURO/UAN {EURO.map(item =>item.rateBuy.toFixed(2))}/{EURO.map(item =>item.rateSell.toFixed(2))}</Typography></Box>
+          <Box><Typography variant="caption">EURO/USD {EURO_USD.map(item =>item.rateBuy.toFixed(2))}/{EURO.map(item =>item.rateSell.toFixed(2))}</Typography></Box>
         
         
         </Paper>

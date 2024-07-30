@@ -77,7 +77,7 @@ const style = {
    
          <Modal open={true}>
           <Container  sx={{...style,maxWidth:'550px'}}>
-        <Button onClick={()=>setRoute(CART_ROUTE)}>Closed</Button>
+        <Button onClick={()=>setRoute(CART_ROUTE)}>Закрыть</Button>
       <Box sx={{
       
       bgcolor: 'background.paper',

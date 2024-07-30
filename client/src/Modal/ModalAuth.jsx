@@ -62,7 +62,7 @@ const getParol = (e)=>{
       <Modal open={true}>
 
           <Container  sx={{...style}}>
-          <Button onClick={()=>setRoute(CART_ROUTE)}>Close</Button>
+          <Button onClick={()=>setRoute(CART_ROUTE)}>Закрыть</Button>
       <Box sx={{display:'flex',flexDirection:'column', alignItems:'center'}}>
 
         <Typography variant='h6' sx={{alignContent:'center'}}>Авторизация</Typography>

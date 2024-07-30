@@ -7,6 +7,8 @@ export const REGISTRATION_ROUTE = '/registration'
 export const CART_ROUTE = '/cart'
 export const LIST_ORDER = '/list_order'
 
+export const TELEGRAM_ROUTE = 'https://t.me/telegram'
+
 
 export const HOME_PAGE  ='/'
 export const SHOP_ROUTE = '/shop'

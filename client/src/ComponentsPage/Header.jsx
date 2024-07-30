@@ -17,9 +17,11 @@ import { useTheme} from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import {ColorModeContext} from './Layout';
-import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useCart } from "react-use-cart";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 
 
@@ -29,6 +31,9 @@ function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const {totalItems} = useCart();
+  const matches = useMediaQuery('(min-width:850px)');
+
+  const styleMenu = { minWidth: 100,color: 'white', cursor:'pointer' };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -54,13 +59,14 @@ function Header() {
    
       <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{display:'flex', flexFlow: 'row wrap'}}>
-        <AdbIcon sx={{color: '#7FFF00'}} />
+        <Toolbar disableGutters sx={{display:'flex',justifyContent:'space-evenly'}}>
+        
 
-        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+        <Box sx={{ flexGrow:'30px', display: { xs: 'flex', md: 'none' } }}>
           
             <IconButton
-              size="large"
+            sx={{maxWidth:'30px'}}
+              size="small"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -90,60 +96,58 @@ function Header() {
                 display: 'flex', flexDirection: 'column'
               }}>
               
-              <Button variant="text" sx={{margin:2}} onClick={()=>{handleCloseNavMenu();setRoute(CATALOG_ROUTE)}}>
+              <Typography sx={{margin:1}}  onClick={()=>{handleCloseNavMenu();setRoute(CATALOG_ROUTE)}}>
                   Каталог
-                </Button>
+                </Typography>
               
-                <Button variant="text" sx={{margin:2}} onClick={()=>{handleCloseNavMenu();setRoute(ABOUT_ROUTE)}}>
+                <Typography  sx={{margin:1}} onClick={()=>{handleCloseNavMenu();setRoute(ABOUT_ROUTE)}}>
                   О нас
-                  </Button>
+                  </Typography>
                         
-                <Button variant="text" sx={{margin:2}} onClick={()=>{handleCloseNavMenu();setRoute(CONTACT_ROUTE)}}>
+                <Typography  sx={{margin:1}} onClick={()=>{handleCloseNavMenu();setRoute(CONTACT_ROUTE)}}>
                   Контакты
-                  </Button>
+                  </Typography>
                                         
-                <Button variant="text" sx={{margin:2}} onClick={()=>{handleCloseNavMenu();setRoute(CART_ROUTE)}}>
+                <Typography  sx={{margin:1}} onClick={()=>{handleCloseNavMenu();setRoute(CART_ROUTE)}}>
                  Корзина
-                 </Button>
+                 </Typography>
                 
                  </Box>
 
             </Menu>
           </Box>
           
-      
+      <Box>{!matches ? <Typography sx={{color: '#7FFF00',marginLeft:15}} onClick={
+                   ()=>setRoute(HOME_PAGE)}>climatesite.shop</Typography> : <Box sx={{display:'flex',alignItems:'center'}}>
+        <AdbIcon sx={{color: '#7FFF00'}}/><Typography variant="h6"  sx={{ minWidth: 100,color: '#7FFF00',marginRight:10 }} onClick={
+                   ()=>setRoute(HOME_PAGE)}>CLIMATE</Typography></Box>}</Box>
          
-          <Box sx={{ justifyContent: 'space-around', alignItems:'center',display: { xs: 'none', md: 'flex' }}}>
+          <Box sx={{ display: {xs: 'none',  md: 'flex' }}}>
 
-            <Box sx={{display: 'flex',justifyContent: 'space-around',margin:'0 10px'}}>
-            
-                <Typography variant="h6"  sx={{ minWidth: 100,color: '#7FFF00',marginRight:10 }} onClick={
-                   ()=>setRoute(HOME_PAGE)}>CLIMATE</Typography>
-          
-                <Typography variant="h6"  sx={{ minWidth: 100,color: 'white' }} onClick={
+                <Typography variant="h6" fontFamily='"Segoe UI"'  sx={styleMenu} onClick={
                    ()=>setRoute(CATALOG_ROUTE)}>Каталог</Typography>
                                                
-                <Typography variant="h6" sx={{ minWidth: 100,color: 'white' }} onClick={
+                <Typography variant="h6" fontFamily='"Segoe UI"'  sx={styleMenu} onClick={
                    ()=>setRoute(ABOUT_ROUTE)}>О нас</Typography>
                              
-                <Typography variant="h6"  sx={{ minWidth: 100 ,color: 'white' }} onClick={
+                <Typography variant="h6" fontFamily='"Segoe UI"'  sx={styleMenu} onClick={
                   ()=>setRoute(CONTACT_ROUTE)}>Контакты</Typography>
-                                  
-                </Box>
-                                              
-                                                
+                                                                                                                                   
           </Box> 
 
            
-      <IconButton sx={{ marginRight:'30px',marginLeft:'auto'}} onClick={colorMode.toggleColorMode} color="inherit">
+       
+<Box sx={{display:'flex',justifyContent:'space-evenly', flexDirection:'row',justifyItems:'stretch',alignItems:'center',marginLeft:'auto'}}>
+
+<IconButton  onClick={colorMode.toggleColorMode} color="inherit">
         {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>
 
-      <Box  onClick={()=>setRoute(CART_ROUTE)} >
-            <ProductionQuantityLimitsIcon color='warning'/><Typography variant="caption">{totalItems}</Typography>
+      <Box  onClick={()=>setRoute(CART_ROUTE)} sx={{display:'flex'}}>
+            <ShoppingCartIcon color='warning'/><Typography variant="caption">{totalItems}</Typography>
             </Box> 
     
-          <Box sx={{ flexGrow: 0,marginLeft:'20px' }}>
+          <Box >
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <MoreVertIcon/>
@@ -173,7 +177,7 @@ function Header() {
                 </MenuItem>
             </Menu>
           </Box>
- 
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

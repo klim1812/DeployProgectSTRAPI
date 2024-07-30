@@ -37,7 +37,7 @@ function setRoute(e){
     <div>   
          
           <Paper sx={{display:'flex',flexWrap:'wrap',justifyContent:'space-evenly'}}>
-            <Typography sx={{margin:2}}>Количество товаров в корзине: {totalItems}</Typography>
+            <Typography sx={{margin:2}}>В корзине {totalItems} шт.</Typography>
               <Typography sx={{margin:2}}>Общая сумма заказа:  {cartTotal}$ </Typography>
 
           <Button variant="text" sx={{margin:2}} onClick={handOpenOrder }>Оформить заказ</Button>

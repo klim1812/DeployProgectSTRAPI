@@ -11,11 +11,16 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { HOST_STRAPI, PRODUCT_ROUTE } from '../utils';
+import { HOST_STRAPI, PRODUCT_ROUTE, TELEGRAM_ROUTE } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useCart } from 'react-use-cart';
-
+import TelegramIcon from '@mui/icons-material/Telegram';
+import Tooltip from '@mui/material/Tooltip';
+import Popover from '@mui/material/Popover';
+import Button from '@mui/material/Button';
+import {  Box, Link } from '@mui/material';
+import { blue } from '@mui/material/colors';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -30,11 +35,12 @@ const ExpandMore = styled((props) => {
 
 export default function CardProduct({data}) {
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [expanded, setExpanded] = React.useState(false);
   const [size,setSize] = React.useState(false);
   const {addItem} = useCart();
-  
-
+  const currentUrl = window.location.href;
+console.log(currentUrl)
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -45,8 +51,28 @@ export default function CardProduct({data}) {
   const handleUpClick = () =>{
     setSize(false);
 };
+const handleClickShare = (event) => {
+  setAnchorEl(event.currentTarget);
+};
 
+const handleClose = () => {
+  setAnchorEl(null);
+};
+const copyLink = () =>{
+  navigator.clipboard.writeText(currentUrl)
+  .then(() => {
+    
+  })
+  .catch(err => {
+    console.log('Something went wrong', err);
+  });
+  handleClose();
+}
+
+const open = Boolean(anchorEl);
+const id = open ? 'simple-popover' : undefined;
   const oneUrl = new Object(data.attributes.image.data.map(res => [res.attributes.url]));
+
 
 
   return (
@@ -94,9 +120,27 @@ export default function CardProduct({data}) {
         <IconButton aria-label="add to favorites" >
           <FavoriteIcon color='secondary'/>
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon color='primary'/>
-        </IconButton>
+
+           <div>
+      <IconButton variant="contained" onClick={handleClickShare}>
+       <Tooltip title='Поделиться'><ShareIcon color='primary'/> </Tooltip>
+      </IconButton>
+      <Popover
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',  
+                      
+        }}
+      >
+       <TelegramIcon  sx={{fontSize:'50px', borderRadius:'25px', background:'#1e90ff'}} onClick={copyLink}/>
+       
+       
+      </Popover>
+    </div>
+
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

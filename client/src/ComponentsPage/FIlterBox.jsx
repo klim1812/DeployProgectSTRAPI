@@ -16,7 +16,7 @@ function FilterBox() {
   if(error){return<h2>Error...</h2>};
   const data_shop = data.products.data;
 
-  let brands = data_shop.map(el => el.attributes.brand);
+  let brands = data_shop.map(el => el.attributes.brand_name);
   let power = data_shop.map(el => el.attributes.powerBtu );
   let compressor = data_shop.map(el => el.attributes.compressorType );
   let repeat_brands = (brands.filter((text,index) => brands.indexOf(text) === index)).sort((a,b) => a-b);

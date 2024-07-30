@@ -33,3 +33,5 @@ module.exports = ({env}) => ({
         },
       }
 });
+//Этот пример кода можно использовать в контроллере или служебном пути:
+ //./src/api/{имя API}/controllers/{имя API}.js или ./src/api/{имя API}/services/{имя API}.js//

@@ -14,12 +14,12 @@ import Shop from './Shop';
 import { Container } from '@mui/material';
 import FilterBox from '../ComponentsPage/FIlterBox';
 import Typography from '@mui/material/Typography';
-import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import { useCart } from 'react-use-cart';
 import { ABOUT_ROUTE,CONTACT_ROUTE } from '../utils';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const drawerWidth = 300;
 const ITEM_HEIGHT = 48;
@@ -88,10 +88,10 @@ function Catalog() {
             sx={{
          
               flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: '#90EE90',
+              fontFamily: '"Segoe UI"',
+              fontWeight: 400,
+              letterSpacing: '.2rem',
+              // color: 'white',
               textDecoration: 'none',
               marginRight:'50px'
             }}
@@ -138,7 +138,7 @@ function Catalog() {
 
                 </Box>
               <Box sx={{display:'flex'}} onClick={()=>navigate(CART_ROUTE)}>
-            <ProductionQuantityLimitsIcon color='warning' /><Typography variant="caption">{totalItems}</Typography>
+            <ShoppingCartIcon color='warning' /><Typography variant="caption">{totalItems}</Typography>
             </Box>
 
         </Toolbar>
@@ -164,7 +164,7 @@ function Catalog() {
           }}
         >
           <DrawerCat/>
-          <Toolbar />
+          
           <Divider />
           <FilterBox/>
           
@@ -178,8 +178,7 @@ function Catalog() {
           open
         >
           <DrawerCat/>
-          {/* <Toolbar /> */}
-          {/* <Divider /> */}
+         
           <FilterBox/>
         </Drawer>
     
@@ -187,9 +186,9 @@ function Catalog() {
       <Box
         component="main"
        
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{ flexGrow: 1, p: 1, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
-        {/* <Toolbar /> */}
+        
     <Box >
       <Shop/>
     </Box>

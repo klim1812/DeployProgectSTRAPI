@@ -13,6 +13,8 @@ import { make_category } from '..';
 import { CATALOG_ROUTE, HOST_STRAPI } from '../utils';
 import { make_subcategory } from '..';
 import { useNavigate } from 'react-router-dom';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function CardSubcategories() {
   const navigate = useNavigate();
@@ -20,7 +22,11 @@ export default function CardSubcategories() {
     const {data, loading,error} = useQuery(SUBCATEGORIES,{variables:{id:num_category[0]}});
 
     if(loading){
-        return<h2>...loading</h2>
+        return <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+        <CircularProgress color="secondary" />
+        <CircularProgress color="success" />
+        <CircularProgress color="inherit" />
+      </Stack>
       }
       if(error){
         return<h2>Error...</h2>
