@@ -68,8 +68,10 @@ const copyLink = () =>{
 }
 
 const open = Boolean(anchorEl);
-  const oneUrl = new Object(data.attributes.image.data.map(res => [res.attributes.url]));
-
+  // const oneUrl = new Object(data.attributes.image.data.map(res => [res.attributes.url]));
+  const oneUrl = data.attributes.image.data.map(item => item.attributes.url);
+  console.log(oneUrl)
+console.log(data.attributes.image.data.map(item => item.attributes.url))
 
 
   return (
@@ -95,10 +97,11 @@ const open = Boolean(anchorEl);
         component="img"
         height="250"
         image={HOST_STRAPI + oneUrl[0]}
-        alt="Paella dish"
+        alt={data.attributes.model}
+        sx={{cursor:'pointer'}}
         onClick={()=>{sessionStorage.setItem('product_id',data.id);navigate(PRODUCT_ROUTE+'/'+ data.attributes.slug)}}
       />
-      
+     
       <CardContent >
         <Typography variant="body2" color='primary'>
         Модель:{data.attributes.model}

@@ -43,6 +43,7 @@ function Shop() {
   setAge(event.target.value);
 };
 
+const paginationVisible = data_filter.length > 9;
 
     return (
       <>
@@ -67,7 +68,7 @@ function Shop() {
       {data_filter.map(item => <CardProduct   data ={item} key={item.attributes.slug}/>)}
               
       </Box>
-      <Box><PaginationBlock /></Box>
+      <Box>{paginationVisible ? <PaginationBlock /> : ''}</Box>
       </>
     );
 }

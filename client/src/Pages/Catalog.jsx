@@ -80,25 +80,12 @@ function Catalog() {
             <MenuIcon />
             
           </IconButton>
-         <Box style={{margin:'0 10px'}} onClick={()=>navigate(HOME_PAGE)}>
+         <Box style={{margin:'0 10px',display:'flex'}}>
           
-          <Typography
-            variant="h5"
+          <Typography variant='h6' sx={{cursor:'pointer',margin:'15px'}} onClick={()=>navigate(HOME_PAGE)}>Главная</Typography>
+          <Typography variant='h6'  sx={{cursor:'pointer',margin:'15px'}} onClick={()=>navigate(ABOUT_ROUTE)}>О нас</Typography>
+          <Typography variant='h6' sx={{cursor:'pointer',margin:'15px'}} onClick={()=>navigate(CONTACT_ROUTE)}>Контакты</Typography>
        
-            sx={{
-         
-              flexGrow: 1,
-              fontFamily: '"Segoe UI"',
-              fontWeight: 400,
-              letterSpacing: '.2rem',
-              // color: 'white',
-              textDecoration: 'none',
-              marginRight:'50px'
-            }}
-          >
-            Главная
-          </Typography>
-          
           </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center',marginLeft:'auto' }}>
@@ -137,7 +124,7 @@ function Catalog() {
                 </Menu>
 
                 </Box>
-              <Box sx={{display:'flex'}} onClick={()=>navigate(CART_ROUTE)}>
+              <Box sx={{display:'flex',cursor:'pointer'}} onClick={()=>navigate(CART_ROUTE)}>
             <ShoppingCartIcon color='warning' /><Typography variant="caption">{totalItems}</Typography>
             </Box>
 

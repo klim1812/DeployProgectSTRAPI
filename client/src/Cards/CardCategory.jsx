@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {  Grid, Paper, Typography } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import {  HOST_STRAPI, SUBCATALOG_ROUTE,  } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { CATEGORIES } from '../ApolloQuery/Categories';
@@ -8,20 +8,25 @@ import { make_category } from '..';
 import { styled } from '@mui/material/styles';
 import { Box} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
  const Item = styled(Paper)(({ theme }) => ({
       backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
       ...theme.typography.body2,
       padding: theme.spacing(1),
       textAlign: 'center',
+      display:'flex',
       color: theme.palette.text.secondary,
-      minWidth:300,
-      margin:2
-      
+      minWidth:400,
+      margin:2,
+      // justifyItems:'stretch',
+      justifyContent:'space-evenly',
+      cursor:'pointer'
+
     }));
 
  function CardCategory() {
-  const matches = useMediaQuery('(min-width:850px)');
+  const matches = useMediaQuery('(min-width:1200px)');
   const navigate = useNavigate();
   const {data, loading,error} = useQuery(CATEGORIES);
   if(loading){
@@ -36,22 +41,25 @@ function setRoute(e){
   const dataC = data.categories.data
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-     {!matches ? <Box>{dataC.map(elem =><Item key={elem.id} onClick={
-      () =>{make_category(elem.id);
-        setRoute(SUBCATALOG_ROUTE)}
-    }><Typography variant='h6'>{elem.attributes.name}</Typography></Item>)}</Box> : <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-      {dataC.map(list =><Grid item xs={2} sm={4} md={4}><Item key={list.id} onClick={
+    
+    <>
+   
+
+      {dataC.map(list =><Item key={list.id} onClick={
       () =>{make_category(list.id);
         setRoute(SUBCATALOG_ROUTE)}
-    } sx={{display:'flex'}}>
-    <Box sx={{margin:3}}><Typography variant='h6'>{list.attributes.name}</Typography>
-    <Typography variant='capture'>Открыть каталог</Typography></Box>
-    <img alt={list.attributes.name} style={{width:'100px',height:'100px',marginLeft:'auto'}}
+    } >
+    <Box >
+      <Typography variant='h6'>{list.attributes.name} </Typography> 
+    {matches ?<Typography variant='capture'>Открыть каталог</Typography>: ''}
+    </Box>
+    {!matches ? <MenuOpenIcon sx={{marginLeft:'auto'}}/> :''}
+    {matches ? <img alt={list.attributes.name} style={{width:'100px',height:'100px',marginLeft:'auto'}}
     src={HOST_STRAPI + list.attributes.image.data.map(el => el.attributes.url)}
-     /></Item></Grid>)}</Grid>} 
-
-  </Box>
+     /> : ''} </Item>)}
+    
+</>
+  
   );
 }
 export default CardCategory ;
