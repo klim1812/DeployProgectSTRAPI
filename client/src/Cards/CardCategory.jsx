@@ -8,7 +8,7 @@ import { make_category } from '..';
 import { styled } from '@mui/material/styles';
 import { Box} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import DragHandleIcon from '@mui/icons-material/DragHandle';
 
  const Item = styled(Paper)(({ theme }) => ({
       backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -18,9 +18,8 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen';
       display:'flex',
       color: theme.palette.text.secondary,
       minWidth:400,
-      margin:2,
-      // justifyItems:'stretch',
-      justifyContent:'space-evenly',
+      margin:3,
+      justifyContent:'space-between',
       cursor:'pointer'
 
     }));
@@ -49,11 +48,11 @@ function setRoute(e){
       () =>{make_category(list.id);
         setRoute(SUBCATALOG_ROUTE)}
     } >
-    <Box >
-      <Typography variant='h6'>{list.attributes.name} </Typography> 
+    <Box  sx={{marginLeft:3}}>
+      <Typography variant='h6' >{list.attributes.name} </Typography> 
     {matches ?<Typography variant='capture'>Открыть каталог</Typography>: ''}
     </Box>
-    {!matches ? <MenuOpenIcon sx={{marginLeft:'auto'}}/> :''}
+    {!matches ? <DragHandleIcon sx={{marginRight:3}}/> :''}
     {matches ? <img alt={list.attributes.name} style={{width:'100px',height:'100px',marginLeft:'auto'}}
     src={HOST_STRAPI + list.attributes.image.data.map(el => el.attributes.url)}
      /> : ''} </Item>)}

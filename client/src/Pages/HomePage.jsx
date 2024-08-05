@@ -22,7 +22,7 @@ function HomePage() {
       
     <ChangeCurrency/>
     <Banner/>
-    <Box sx={matches ? {display:'flex',justifyContent: 'space-evenly'} : ''}><CardCategory/></Box>
+    {!matches ? <CardCategory/> : <Box sx={{display:'flex',justifyContent:'space-evenly'}}><CardCategory/></Box>}
     <CardLanding/>
     
     </>

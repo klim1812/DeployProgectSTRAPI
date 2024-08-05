@@ -68,10 +68,9 @@ const copyLink = () =>{
 }
 
 const open = Boolean(anchorEl);
-  // const oneUrl = new Object(data.attributes.image.data.map(res => [res.attributes.url]));
+ 
   const oneUrl = data.attributes.image.data.map(item => item.attributes.url);
-  console.log(oneUrl)
-console.log(data.attributes.image.data.map(item => item.attributes.url))
+ 
 
 
   return (

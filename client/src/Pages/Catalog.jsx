@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import { useNavigate } from 'react-router-dom';
-import { CART_ROUTE, HOME_PAGE } from '../utils';
+import { AUTH_ROUTE, CART_ROUTE, HOME_PAGE } from '../utils';
 import DrawerCat from '../ComponentsPage/DrawerCat';
 import Shop from './Shop';
 import { Container } from '@mui/material';
@@ -18,8 +18,8 @@ import { useCart } from 'react-use-cart';
 import { ABOUT_ROUTE,CONTACT_ROUTE } from '../utils';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
-import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import MenuItem from '@mui/material/MenuItem';
 
 const drawerWidth = 300;
 const ITEM_HEIGHT = 48;
@@ -31,7 +31,7 @@ function Catalog() {
   const [isClosing, setIsClosing] = useState(false);
   const open = Boolean(anchorEl);
   const {totalItems} = useCart();
- 
+  const isAuth = localStorage.getItem('token');
  
  
   const handleDrawerClose = () => {
@@ -54,7 +54,9 @@ function Catalog() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+  function setRoute(e){
+    navigate(e)
+};
 
     return (
       <>
@@ -114,13 +116,12 @@ function Catalog() {
         }}
       >
                       
-            <Button variant="text" sx={{margin:2}} onClick={()=>navigate(ABOUT_ROUTE)}>
-                  О нас
-            </Button>
-
-           <Button variant="text" sx={{margin:2}} onClick={()=>navigate(CONTACT_ROUTE)}>
-                 Контакты
-            </Button>
+                      <MenuItem onClick={()=>{setRoute(AUTH_ROUTE)}}>
+                  <Typography textAlign="center">Авторизация</Typography>
+                </MenuItem>
+                {isAuth ? <MenuItem onClick={()=>{localStorage.clear()}}>
+                  <Typography textAlign="center">Выйти из профиля</Typography>
+                </MenuItem>:''}   
                 </Menu>
 
                 </Box>
